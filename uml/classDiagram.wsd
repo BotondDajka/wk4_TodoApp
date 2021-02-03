@@ -1,0 +1,55 @@
+@startuml
+
+title ToDo App - Class Diagram
+
+
+class Board {
+  Int id
+  String name
+  edit()
+  delete()
+  addArea()
+}
+
+class Area {
+  Int id
+  String title
+  edit()
+  delete()
+  addTask()
+}
+
+class Task {
+  Int id
+  String title
+  String text
+  Array labels
+  edit()
+  delete()
+  assignToUser()
+}
+
+class Team {
+  Int id
+  String name
+  addBoard()
+  addUser()
+}
+
+class User {
+  Int id
+  String name
+  String imageLink
+  String password
+  edit()
+  delete()
+}
+
+
+Board "1" *-- "many" Area : contains
+Area "1" -- "many" Task : contains
+Team "1" -- "many" Board
+Team "1" *-- "many" User : contains
+User "1" -- "1" Task : assigned to
+
+@enduml
