@@ -1,0 +1,49 @@
+@startuml
+
+' For use with PlantUML 
+
+title Todo App - Sequence Diagram
+
+actor user
+participant frontEnd
+participant server
+database db
+
+== Create project board ==
+
+user -> frontEnd : click 'Create a project board'
+frontEnd -> server : call function to create new project board
+server -> db : create new table to store project 'todos'
+db -> server : return table to server for use
+server -> server : dynamically prepare page to send to front end
+server -> frontEnd : render page to front end
+frontEnd --> user : view new project board page
+
+== Add task/todo ==
+
+user -> frontEnd : click 'Add todo/task'
+frontEnd -> server : send given information for task
+server -> db : create new record in table for that specific page
+db -> server : return table to server for use
+server -> server : dynamically prepare/update page
+server -> frontEnd : render or send updates to front end
+
+== Edit task/todo ==
+
+user -> frontEnd : click 'Edit todo/task'
+frontEnd -> server : send new information for task
+server -> db : find record in table and update it
+db -> server : return table to server for use
+server -> server : dynamically prepare/update page
+server -> frontEnd : render or send updates to front end
+
+== Delete task/todo ==
+user -> frontEnd : click 'Delete todo/task'
+frontEnd -> server : send information of task to be deleted
+server -> db : send record information
+db -> db : delete record
+db -> server : return table to server for use
+server -> server : dynamically prepare/update page
+server -> frontEnd: render or send updates to front end
+
+@enduml

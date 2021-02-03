@@ -1,0 +1,87 @@
+@startuml
+
+    title Todo App Use Case Diagram
+
+    left to right direction
+
+
+
+
+
+    skinparam actorStyle awesome
+    :User: as user
+
+    skinparam actorStyle awesome
+    :Site Administrator: as admin
+
+    rectangle TodoApp{
+        package Front-End{
+
+            rectangle Auth{
+                usecase "Login" as login
+                usecase "Register new account" as register
+            }
+            
+            usecase "Create Project Board" as createBoard
+            usecase "View Project Board" as viewBoard
+            usecase "View All Boards" as viewAllBoards
+            usecase "Set User's display name" as username
+            usecase "Set User's avatar" as avatar
+            usecase "Assign task to user" as asignTask
+            usecase "Create Task" as createTask
+            usecase "Edit/Move Task" as editTask
+
+        }
+
+        
+        package "Back-End" as backEnd{
+
+            rectangle "Auth Validation" as s_auth{
+                usecase "Auth Validation" as authValidation
+            }
+
+            usecase "Store User" as s_saveUser
+            usecase "Update user" as s_updateUser
+            usecase "Store Board" as s_createBoard
+            usecase "Update Board" as s_updateBoard
+            usecase "Get Board" as s_getBoard
+            usecase "Store Tasks" as s_saveTask
+            usecase "Update Task" as s_updateTask
+            usecase "Get Tasks on Board" as s_getTasks
+        }
+    }
+    
+
+    user --[#red,bold]> login
+    user --[#red,bold]> register
+
+    Auth <-[#blue,bold]-> s_auth
+
+    Auth -[#green,bold]> createBoard 
+    Auth -[#green,bold]> viewBoard
+    Auth -[#green,bold]> viewAllBoards
+    Auth -[#green,bold]> username
+    Auth -[#green,bold]> avatar
+    Auth -[#green,bold]> asignTask
+    Auth -[#green,bold]> createTask
+    Auth -[#green,bold]> editTask
+
+    createBoard -[#purple,bold]> s_createBoard
+    viewBoard -[#purple,bold]> s_getBoard
+    viewBoard -[#purple,bold]> s_getTasks
+    viewAllBoards -[#purple,bold]> s_getBoard
+    username -[#purple,bold]> s_updateUser
+    avatar -[#purple,bold]> s_updateUser
+
+    register -[#purple,bold]-> s_saveUser
+
+    asignTask -[#purple,bold]> s_updateTask
+    createTask -[#purple,bold]> s_saveTask
+    editTask -[#purple,bold]> s_updateTask
+    editTask -[#purple,bold]> s_updateBoard
+
+    admin --[#violet,bold]> backEnd
+
+
+
+@enduml
