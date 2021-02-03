@@ -3,7 +3,7 @@
 
 
 
-I added my very special comment here! .
+I added my very special comment here!
 
 ### Joe's addition to readme
 
