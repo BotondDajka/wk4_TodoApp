@@ -3,7 +3,7 @@ const { Board } = require('../../Models/Board')
 const { Area } = require('../../Models/Area')
 const { Task } = require('../../Models/Task')
 
-fs.readFile('./board.json', (err, data) => {
+fs.readFile('./db/mock_data/board.json', (err, data) => {
     if(err) {
         throw new Error(err)
     }
