@@ -12,8 +12,9 @@ A smallscale web-based Todo application to keep track of tasks that need to be w
 ## Installation
 1.  Clone repo to local directory
 2. Run `npm install` to install dependencies
-3. Run `node sequelize-index.js` to generate database
-4. Run `node server.js` to run the express webserver
+3. Run `node db/prepareDb.js` to generate database
+4. Run `node db/mock_data/loadBoards.js` to populate database with mock data
+5. Run `node server.js` to run the express webserver
 
 ## Features
 ### User
