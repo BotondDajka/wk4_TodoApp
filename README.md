@@ -7,7 +7,7 @@ A smallscale web-based Todo application to keep track of tasks that need to be w
 - [Features](#features)
 - [System Specification](https://github.com/BotondDajka/wk4_TodoApp/wiki/System-Specification)
 - [Team Roles](https://github.com/BotondDajka/wk4_TodoApp/wiki/Team-Roles)
-- [Design/Modeling](https://github.com/BotondDajka/wk4_TodoApp/wiki/Design---Modeling)
+- [Design/Modeling](https://github.com/BotondDajka/wk4_TodoApp/wiki/Design-and-Modelling)
 
 ## Installation
 1.  Clone repo to local directory
