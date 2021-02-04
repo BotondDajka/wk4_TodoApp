@@ -1,1 +1,16 @@
-<h1>My nice scrum board here!</h1>
+<h1>{{Project.name}}</h1>
+<section>
+    {{#each boards}}
+        <article>
+            <h2>{{this.title}}</h2>
+            <dl>
+                {{#each this.items}}
+                    <div>
+                        <dt>{{this.name}}</dt>
+                        <dd>£{{this.price}}</dd>
+                    </div>
+                {{/each}}
+            </dl>
+        </article>
+    {{/each}}
+</section>

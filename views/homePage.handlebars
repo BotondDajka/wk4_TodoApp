@@ -1,1 +1,22 @@
+<div class="hero-image">
+  <div class="hero-text">
+    <h1>Name Of App</h1>
+    <p>Info about our app</p>
+    <button>Click here</button>
+  </div>
+</div>
+
 <h1>Login screen!</h1>
+<h1>ToDo App</h1>
+<section>
+    {{#each Project}}
+    <span>
+    <a href="/To Do/{{this.id}}">
+    <article>
+        <header style="background-image: url({{image}});">
+        <main>{{this.name}}</main>
+      </article>
+      </a>
+      </span>
+     {{/each}}
+</section>
