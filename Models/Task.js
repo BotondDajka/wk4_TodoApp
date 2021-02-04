@@ -7,9 +7,17 @@ class Task extends Model {
 Task.init({
     title: DataTypes.STRING,
     text: DataTypes.STRING,
-    labels: DataTypes.ARRAY
+    areaId: DataTypes.INTEGER,
+    labels: DataTypes.ARRAY(DataTypes.TEXT)
+    //userIdAssignedTo: DataTypes.INTEGER
+},
+{
+    sequelize,
+    timestamps: false,
+    freezeTableName: true
 })
 
 // define associations
+
 
 module.exports = { Task }
