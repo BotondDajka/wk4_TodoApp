@@ -6,7 +6,12 @@ class Area extends Model {
 
 Area.init({
     title: DataTypes.STRING
-})
+},{
+    sequelize,
+    timestamps: false
+});
+
+
 
 // define associations
 

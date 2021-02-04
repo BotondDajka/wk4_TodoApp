@@ -19,8 +19,10 @@
   "homepage": "https://github.com/BotondDajka/wk4_TodoApp#readme",
   "dependencies": {
     "@handlebars/allow-prototype-access": "^1.0.3",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
     "cypress": "^6.4.0",
     "express": "^4.17.1",
     "express-handlebars": "^5.2.0",

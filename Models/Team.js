@@ -6,7 +6,10 @@ class Team extends Model {
 
 Team.init({
     name: DataTypes.STRING
-})
+},{
+    sequelize,
+    timestamps: false
+});
 
 // define associations
 

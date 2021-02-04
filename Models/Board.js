@@ -6,7 +6,12 @@ class Board extends Model {
 
 Board.init({
     name: DataTypes.STRING
-})
+},{
+    sequelize,
+    timestamps: false
+});
+
+
 
 // define associations
 
