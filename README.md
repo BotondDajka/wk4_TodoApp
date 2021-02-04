@@ -15,6 +15,10 @@ A smallscale web-based Todo application to keep track of tasks that need to be w
 3. Run `node db/prepareDb.js` to generate database
 4. Run `node db/mock_data/loadBoards.js` to populate database with mock data
 5. Run `node server.js` to run the express webserver
+### Known Issues and Fixes
+#### Error: Please install sqlite3 package manually
+1. Delete node_modules
+2. Run `npm install` to install node modules again
 
 ## Features
 ### User
