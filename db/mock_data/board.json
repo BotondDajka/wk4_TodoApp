@@ -1,0 +1,126 @@
+[
+   {
+    "name": "My Scrum board 1",
+    "areas": [
+        {
+            "title": "Ideas/Suggestions",
+            "tasks": [
+                {
+                    "taskTitle": "Write code",
+                    "text": "Hello World!",
+                    "labels": [
+                        "Front End",
+                        "Back End"
+                    ]
+                },
+                {
+                    "taskTitle": "Design login",
+                    "text": "Create login page design",
+                    "labels": [
+                        "Design"
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "In Progress",
+            "tasks": []
+        },
+        {
+            "title": "Done",
+            "tasks": [
+                {
+                    "taskTitle": "Written code complete.",
+                    "text": "Hello World!",
+                    "labels": [
+                        "Front End",
+                        "Back End"
+                    ]
+                }
+            ]
+        }
+    ]
+   },
+   {
+    "name": "My Scrum board 2",
+    "areas": [
+        {
+            "title": "Todo",
+            "tasks": [
+                {
+                    "taskTitle": "Create database",
+                    "text": "SQLite",
+                    "labels": [
+                        "Db",
+                        "Back End"
+                    ]
+                },
+                {
+                    "taskTitle": "Populate database",
+                    "text": "Load JSON into SQLite",
+                    "labels": [
+                        "Back End"
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "In Progress",
+            "tasks": [
+                {
+                    "taskTitle": "Design front end",
+                    "text": "Using Figma and write HTML/CSS",
+                    "labels": [
+                        "Design",
+                        "Front End"
+                    ]
+                },
+                {
+                    "taskTitle": "UML Diagrams",
+                    "text": "Use PlantUML",
+                    "labels": [
+                        "Design"
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "Done",
+            "tasks": [
+                {
+                    "taskTitle": "Create GitHub repo",
+                    "text": "wk4_TodoApp",
+                    "labels": [
+                        "System",
+                        "Architecture"
+                    ]
+                },
+                {
+                    "taskTitle": "Create base server",
+                    "text": "Create Express server",
+                    "labels": [
+                        "System"
+                    ]
+                }
+            ]
+        }
+    ]
+   },
+   {
+    "name": "My Scrum board 3",
+    "areas": [
+        {
+            "title": "To be completed",
+            "tasks": []
+        },
+        {
+            "title": "Being worked on",
+            "tasks": []
+        },
+        {
+            "title": "Completed",
+            "tasks": []
+        }
+    ]
+   }
+]
