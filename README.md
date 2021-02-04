@@ -6,3 +6,21 @@ A smallscale web-based Todo application to keep track of tasks that need to be w
 2. Run `npm install` to install dependencies
 3. Run `node sequelize-index.js` to generate database
 4. Run `node server.js` to run the express webserver
+
+# Features [WIP]
+## User
+- a private account with login
+- custom name
+- custom avatar
+- unique username
+- ability to create boards
+## Board
+- add users to the board that are part of the team
+- create columns with custom titles
+- create tasks within columns
+- users can drag tasks around columns
+## Tasks
+- custom title
+- custom description
+- custom labels
+- users assigned to it
