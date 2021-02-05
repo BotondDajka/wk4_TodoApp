@@ -33,6 +33,166 @@ app.get('/boardsList/', async (request, response) => {
 })
 
 
+app.route("/api/board/:boardId")
+.get(async (request, response) =>{
+    const boardId = request.params.boardId
+    if (boardId == "all"){
+        await Board.findAll({
+            include: [
+                {model: Area, as: "areas",
+                include:[
+                    {model: Task, as: "tasks"}
+                ]}
+            ]
+        }).then(board=>{
+            response.json(board).status(200).end()
+        }).catch(error =>{
+            response.status(404).send("Error 404").end()
+        })
+    }
+    else{
+        await Board.findOne({
+            where:{
+                id : boardId
+            },
+            include: [
+                {model: Area, as: "areas",
+                include:[
+                    {model: Task, as: "tasks"}
+                ]}
+            ]
+        }).then(board =>{
+            if (!board){
+                response.status(404).send("Error 404").end()
+            }else{
+                //response.json(board).status(200).end()
+                response.render('boardPage', {board: board})
+            }
+            
+        }).catch(error =>{
+            response.status(404).send("Error 404").end()
+        })
+    }
+})
+
+
+app.post("/api/board/:boardId/editTitle", async (request, response)=>{
+    const boardId = request.params.boardId
+    const board = await Board.findOne({
+        where:{
+            id : boardId
+        }
+    })
+    if (!board){
+        response.status(404).send(`Board with id ${boardId} can not be found`).end()
+    }
+    else{
+        const data = request.body
+        console.log(data[Object.keys(data)[0]])
+        board.name = data[Object.keys(data)[0]]
+        board.save()
+        
+        response.status(200).end()
+    }
+})
+
+app.post("/api/board/:boardId/area/:areaId/editTitle", async (request, response)=>{
+    const boardId = request.params.boardId
+    const areaId = request.params.areaId
+
+    const board = await Board.findOne({
+        where:{
+            id : boardId
+        }
+    })
+    if (!board){
+        response.status(404).send(`Board with id ${boardId} can not be found`).end()
+    }
+    else{
+        const area = await Area.findOne({
+            where:{
+                boardId: boardId,
+                id: areaId
+            }
+        })
+        if (!area){
+            response.status(404).send(`Area with id ${areaId} can not be found on board ${boardId}`).end()
+        }
+        else{
+            const data = request.body
+
+            area.title = data[Object.keys(data)[0]]
+    
+            area.save();
+    
+            response.status(200).end()
+        }
+    }
+})
+
+app.post("/api/board/:boardId/area/:areaId/task/:taskId/editTask", async (request, response) =>{
+    const boardId = request.params.boardId
+    const areaId = request.params.areaId
+    const taskId = request.params.taskId
+
+    const board = await Board.findOne({
+        where:{
+            id : boardId
+        }
+    })
+    if (!board){
+        response.status(404).send(`Board with id ${boardId} can not be found`).end()
+    }
+    else{
+        const area = await Area.findOne({
+            where:{
+                boardId: boardId,
+                id: areaId
+            }
+        })
+        if (!area){
+            response.status(404).send(`Area with id ${areaId} can not be found on board ${boardId}`).end()
+        }
+        else{
+            const task = await Task.findOne({
+                where:{
+                    areaId: areaId,
+                    id: taskId
+                }
+            })
+            if (!task){
+                response.status(404).send(`Task with id ${taskId} can not be found on area ${areaId} at board ${boardId}`).end()
+            }
+            else{
+                const data = request.body
+
+                if (!(Object.keys(data)[0] == "title")){
+                    response.status(400).send("Task object must contain property called 'title' ").end();
+                }
+                else if (!(Object.keys(data)[1] == "text")){
+                    response.status(400).send("Task object must contain property called 'text' ").end();
+                }
+                else if (!(Object.keys(data)[2] == "labels")){
+                    response.status(400).send("Task object must contain property called 'labels' ").end();
+                }
+                else if (!(data.labels instanceof Array)){
+                    response.status(400).send("Task labels must be an array").end();
+                }
+                else{
+                    task.title = data.title
+                    task.text = data.text
+                    task.labels = data.labels
+                    
+                    task.save();
+
+                    response.status(200).end()
+                }
+
+            }
+        }
+    }
+
+})
 
 
 app.listen(port, ()=>{

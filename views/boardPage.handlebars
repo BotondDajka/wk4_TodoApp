@@ -4,9 +4,8 @@
   <div class="dropdown">
     <button class="dropbtn">Boards</button>
     <div class="dropdown-content">
-      <a href="#">Board 1</a>
-      <a href="#">Board 2</a>
-      <a href="#">Board 3</a>
+      <a href="/api/board/1">Board 1</a>
+      <a href="/api/board/2">Board 1</a>
     </div>
   </div> 
   <div class="dropdown">
@@ -22,29 +21,12 @@
 
 <!-- BOARD -->
 <section>
+{{#each board.areas}}
 <div class="column">
-    <h1>To Do</h1>
-    <div class="task"><h3>Load areas and tasks from database</h3><p>Description</p></div>
-    <div class="task"><h2>Add assigned user HTML</h2><p>Description</p></div>
-    <div class="task"><h2>Finish full HTML layout</h2><p>With areas and tasks from database</p></div>
+    <h1>{{this.title}}</h1>
+    {{#each this.tasks}}
+    <div class="task"><h3>{{this.title}}</h3><p>{{this.text}}</p></div>
+    {{/each}}
 </div>
-<div class="column">
-    <h1>Doing</h1>
-    <div class="task"><h2>Present layout so far</h2><p>Description</p></div>
-</div>
-<div class="column">
-    <h1>Done</h1>
-    <div class="task"><h2>Finish basic HTML</h2><p>Description</p></div>
-</div>
-<div class="column">
-    <h1>Extra</h1>
-    <div class="task"><h2>Task</h2><p>Description</p></div>
-</div>
-<div class="column">
-    <h1>Extra</h1>
-</div>
-<div class="column">
-    <h1>Extra</h1>
-    <div class="task"><h2>Task</h2><p></p></div>
-</div>
+{{/each}}
 </section>
