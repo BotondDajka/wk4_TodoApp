@@ -5,10 +5,11 @@ class User extends Model {
 }
 
 User.init({
-    name: {
+    username: {
         type: DataTypes.STRING,
         allowNull: false // name is required for auth purposes
     },
+    displayName: DataTypes.STRING,
     imageLink: DataTypes.STRING, // if null, display a default image(?)
     password: {
         type: DataTypes.STRING,

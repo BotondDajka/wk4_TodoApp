@@ -12,6 +12,10 @@ fs.readFile('./db/mock_data/user.json', (err, data) => {
 async function loadUsers(data) {
     for(let i = 0; i < data.length; i++) {
         const currentUser = data[i]
-        await User.create({name: currentUser.name, imageLink: currentUser.image, password: currentUser.password, teamIdAssignedTo: currentUser.teams})
+        if(!currentUser.displayname) {
+            await User.create({username: currentUser.username, displayName: currentUser.username, imageLink: currentUser.image, password: currentUser.password, teamIdAssignedTo: currentUser.teams})    
+        } else {
+            await User.create({username: currentUser.username, displayName: currentUser.displayname, imageLink: currentUser.image, password: currentUser.password, teamIdAssignedTo: currentUser.teams})
+        }
     }
 }
