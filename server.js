@@ -3,7 +3,14 @@ const Handlebars = require('handlebars');
 const expressHandlebars = require('express-handlebars');
 const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access');
 const { Op } = require("sequelize");
+const { request, response } = require("express");
 
+const bodyParser = require('body-parser');
+const cors = require('cors')
+
+const { Board } = require('./Models/Board')
+const { Area } = require('./Models/Area')
+const { Task } = require('./Models/Task')
 
 
 const app = express();
@@ -18,6 +25,11 @@ app.set('view engine', 'handlebars')
 
 
 app.use(express.static("public"));
+
+app.use(cors())
+
+app.use(bodyParser.json({type:"application/json"}));
+
 
 app.get('/', async (request, response) => {
     response.render("homePage");
@@ -65,8 +77,7 @@ app.route("/api/board/:boardId")
             if (!board){
                 response.status(404).send("Error 404").end()
             }else{
-                //response.json(board).status(200).end()
-                response.render('boardPage', {board: board})
+                response.json(board).status(200).end()
             }
             
         }).catch(error =>{

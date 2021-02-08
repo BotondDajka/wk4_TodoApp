@@ -8,7 +8,7 @@ class Team extends Model {
 
 Team.init({
     name: DataTypes.STRING,
-    usersList: DataTypes.ARRAY(DataTypes.INTEGER) // store reference to userId in users table
+    usersList: DataTypes.ARRAY(DataTypes.INTEGER) // store reference to user's id in users table
 },
 {
     sequelize,
