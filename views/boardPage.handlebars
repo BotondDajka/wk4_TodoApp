@@ -1,3 +1,4 @@
+
 <!-- NAVBAR -->
 <div class="navbar">
   <a href="/">Login</a>
@@ -17,6 +18,8 @@
       <a href="#">User 4</a>
     </div>
   </div> 
+  <h1 class="title">Board Title 
+  <button class=".smallbtn">Edit</button></h1>
 </div>
 
 <!-- BOARD -->
@@ -45,3 +48,13 @@
   </div>
 </div>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+  $( function() {
+    $( "#sortable1, #sortable2, #sortable3" ).sortable({
+      connectWith: ".connectedSortable",
+      dropOnEmpty: true
+    }).disableSelection();
+  } );
+</script>
