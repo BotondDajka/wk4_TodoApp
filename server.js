@@ -50,9 +50,13 @@ app.get('/boardsList/', async (request, response) => {
 
 app.post('/api/board/createBoard', async (request, response) => {
     const data = request.body
-    console.log(data)
-    await Board.create({name: data.name, assignedTeamId: data.teamId})
-    response.redirect('/boardsList')
+    if(!data.name) { // ensure some sort of data is given
+        throw new Error('Board must have name in order to be added.')
+    } else {
+        console.log(data)
+        await Board.create({name: data.name})
+        response.redirect('/boardsList')
+    }
 })
 
 app.route("/api/board/:boardId")
