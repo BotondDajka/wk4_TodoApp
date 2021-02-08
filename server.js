@@ -132,7 +132,6 @@ app.post("/api/board/:boardId/editTitle", async (request, response)=>{
     }
     else{
         const data = request.body
-        console.log(data[Object.keys(data)[0]])
         board.name = data[Object.keys(data)[0]]
         board.save()
         
@@ -221,7 +220,7 @@ app.post("/api/board/:boardId/area/create", async (request, response)=>{
     else{
         const data = request.body
 
-        if (!(Object.keys(data)[0] == "title")){
+        if (!data.title){
             response.status(400).send("Area must contain property called 'title' ").end();
         }
 
@@ -271,13 +270,13 @@ app.post("/api/board/:boardId/area/:areaId/task/:taskId/editTask", async (reques
             else{
                 const data = request.body
 
-                if (!(Object.keys(data)[0] == "title")){
+                if (!data.title){
                     response.status(400).send("Task object must contain property called 'title' ").end();
                 }
-                else if (!(Object.keys(data)[1] == "text")){
+                else if (!data.text){
                     response.status(400).send("Task object must contain property called 'text' ").end();
                 }
-                else if (!(Object.keys(data)[2] == "labels")){
+                else if (!data.labels){
                     response.status(400).send("Task object must contain property called 'labels' ").end();
                 }
                 else if (!(data.labels instanceof Array)){
@@ -333,7 +332,7 @@ app.post("/api/board/:boardId/area/:areaId/task/:taskId/move", async (request, r
             else{
                 const data = request.body
 
-                if (!(Object.keys(data)[0] == "columnId")){
+                if (!data.columnId){
                     response.status(400).send("Sent object must contain property called 'columnId'").end();
                 }
                 else{
