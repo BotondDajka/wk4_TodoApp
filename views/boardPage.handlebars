@@ -4,8 +4,8 @@
   <div class="dropdown">
     <button class="dropbtn">Boards</button>
     <div class="dropdown-content">
-      <a href="/api/board/1">Board 1</a>
-      <a href="/api/board/2">Board 1</a>
+      <a href="#">Board 1</a>
+      <a href="#">Board 2</a>
     </div>
   </div> 
   <div class="dropdown">
@@ -20,13 +20,27 @@
 </div>
 
 <!-- BOARD -->
-<section>
-{{#each board.areas}}
-<div class="column">
-    <h1>{{this.title}}</h1>
-    {{#each this.tasks}}
-    <div class="task"><h3>{{this.title}}</h3><p>{{this.text}}</p></div>
-    {{/each}}
+<div class="flex-container">
+  <div class="column">
+    <h1>To Do</h1>
+    <ul id="sortable1" class="connectedSortable">
+      <li class="task"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 1</li>
+      <li class="task"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 2</li>
+      <li class="task"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 3</li>
+      <li class="task"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 4</li>
+    </ul>
+  </div>
+
+  <div class="column">
+    <h1>Doing</h1>
+    <ul id="sortable2" class="connectedSortable">
+      <li class="task"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 5</li>
+    </ul>
+  </div>
+
+  <div class="column">
+    <h1>Done</h1>
+    <ul id="sortable3" class="connectedSortable">
+    </ul>
+  </div>
 </div>
-{{/each}}
-</section>
