@@ -17,11 +17,19 @@ h1{
 .title{
   width: 30%;
   margin: 0.2%;
-  margin-left: 35%;
+  margin-left: 20%;
   margin-right: 0;
   text-align: center;
-  font-size: 38px;
   padding: auto;
+  background: none;
+  border: none;
+}
+
+.edit{
+  background: none;
+  border: none;
+  width: 100%;
+  height: 1em;
 }
 
 .column{
@@ -43,7 +51,7 @@ h1{
   min-height: 3.5em;
   height: auto;
   margin: 4%;
-  padding: 0.2em 1em 1em 1em;
+  padding: 0.2em 1em 0.2em 1em;
   background-color: rgb(236, 246, 253);
   color: rgb(12, 11, 11);
   border-radius: 0.75em;
