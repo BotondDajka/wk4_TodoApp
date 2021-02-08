@@ -41,7 +41,9 @@ app.get('/board/', async (request, response) => {
 })
 
 app.get('/boardsList/', async (request, response) => {
-    response.render("boardsListPage");
+    const boards = await Board.findAll()
+    console.log(boards)
+    response.render("boardsListPage", { boards });
 })
 
 
