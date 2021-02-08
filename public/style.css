@@ -1,41 +1,7 @@
-/*---RESPONSIVE SIZING---*/
-@media screen and (min-width: 0em){
-  /* css for small screens goes here */
-  section {
-    grid-template-columns: auto auto;
-}
-}
-@media screen and (min-width: 50em) {
-  /* css for mid screens goes here */
-    section {
-        grid-template-columns: auto auto auto;
-    }
-}
-
-@media screen and (min-width: 65em) {
-  section {
-    grid-template-columns: auto auto auto auto;
-  }
-}
-
-@media screen and (min-width: 75em) {
-  section {
-    grid-template-columns: auto auto auto auto auto;
-  }
-}
-
-@media screen and (min-width: 90em) {
-/* css for full size screens goes here */
-  section {
-      grid-template-columns: auto auto auto auto auto auto;
-  }
-}
-
-section {
-  margin: 1rem;
-  display: grid;
-  grid-template-rows: none;
-  gap: 1rem;
+.flex-container{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
 body{
@@ -55,6 +21,12 @@ h1{
   margin: 2%;
   padding: 1em;
   border-radius: 0.75em;
+}
+
+.connectedSortable{
+  padding: 0;
+  list-style-type: none;
+  min-height: 20px;
 }
 
 .task {
