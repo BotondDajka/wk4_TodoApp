@@ -8,19 +8,18 @@
 }
 
 .header {
-background-image: linear-gradient(rgba(0,0,0,0.6)),rgba(0,0,0,0.6) ,url("https://images.pexels.com/photos/2736499/pexels-photo-2736499.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940") ;
-height: 100vh;
--webkit-background-composite: inherit;
-background-position: center center;
-position: relative;
-
+    background-image: linear-gradient(rgba(0,0,0,0.6)),rgba(0,0,0,0.6) ,url("https://images.pexels.com/photos/2736499/pexels-photo-2736499.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+    height: 100vh;
+    -webkit-background-composite: inherit;
+    background-position: center center;
+    position: relative;
 }
 
 .nav-area {
-     float: right;
-     list-style: none;
-     margin-top: 30px;
-     position: relative;
+    float: right;
+    list-style: none;
+    margin-top: 30px;
+    position: relative;
 } 
 
 .nav-area li {
@@ -29,33 +28,31 @@ position: relative;
 }
 
 .nav-area li a{
-  color: aqua;
-  text-decoration: none;
-  padding: 5px 20px;
-  font-family: poppins;
-  font-size: 16px;
+    color: aqua;
+    text-decoration: none;
+    padding: 5px 20px;
+    font-family: poppins;
+    font-size: 16px;
 }
 
 .nav-area li a:hover{
-      background: #fff;
-      color: aquamarine;
-
+    background: #fff;
+    color: aquamarine;
 
 }
 
 .logo img{
-
     width: 100px;
     float: left;
     height: auto;
 }
 
 .welcome-text {
-     position: absolute;
-     width: 600px;
-     height: 300px;
-     margin: 20% 30%;
-     text-align: center;
+    position: absolute;
+    width: 600px;
+    height: 300px;
+    margin: 20% 30%;
+    text-align: center;
 
 }
 .welcome-text h1{
