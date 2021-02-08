@@ -28,13 +28,20 @@ app.use(express.static("public"));
 
 app.use(cors())
 
-app.use(bodyParser.json({type:"application/json"}));
+// app.use(bodyParser.json({type:"application/json"}));
+app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
 
 
 app.get('/', async (request, response) => {
     response.render("homePage");
 })
 
+
+app.post('/newboard/', (request, respone) => {
+    const data = request.body
+    Board.create({name: data.name, assignedTeamId: data.teamId})
+})
 
 app.get('/board/', async (request, response) => {
     response.render("boardPage");
