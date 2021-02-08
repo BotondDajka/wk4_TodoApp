@@ -28,10 +28,11 @@ app.use(express.static("public"));
 
 app.use(cors())
 
-// app.use(bodyParser.json({type:"application/json"}));
+
 // read data as if it is JSON
-app.use(express.urlencoded({ extended: true }))
+app.use(bodyParser.json({type:"application/json"}));
 app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
 
 app.get('/', async (request, response) => {
@@ -47,8 +48,9 @@ app.get('/boardsList/', async (request, response) => {
     response.render("boardsListPage");
 })
 
-app.post('/boardsList', async (request, response) => {
+app.post('/api/board/createBoard', async (request, response) => {
     const data = request.body
+    console.log(data)
     await Board.create({name: data.name, assignedTeamId: data.teamId})
     response.redirect('/boardsList')
 })
