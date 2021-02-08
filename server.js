@@ -49,7 +49,7 @@ app.get('/boardsList/', async (request, response) => {
 
 app.post('/boardsList', async (request, response) => {
     const data = request.body
-    Board.create({name: data.name, assignedTeamId: data.teamId})
+    await Board.create({name: data.name, assignedTeamId: data.teamId})
     response.redirect('/boardsList')
 })
 
