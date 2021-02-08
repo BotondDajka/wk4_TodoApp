@@ -28,7 +28,11 @@ app.use(express.static("public"));
 
 app.use(cors())
 
+
+// read data as if it is JSON
 app.use(bodyParser.json({type:"application/json"}));
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
 
 app.get('/', async (request, response) => {
@@ -44,6 +48,16 @@ app.get('/boardsList/', async (request, response) => {
     response.render("boardsListPage");
 })
 
+app.post('/api/board/createBoard', async (request, response) => {
+    const data = request.body
+    if(!data.name) { // ensure some sort of data is given
+        throw new Error('Board must have name in order to be added.')
+    } else {
+        console.log(data)
+        await Board.create({name: data.name})
+        response.redirect('/boardsList')
+    }
+})
 
 app.route("/api/board/:boardId")
 .get(async (request, response) =>{
