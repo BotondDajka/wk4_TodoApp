@@ -32,6 +32,13 @@ h1{
   height: 1em;
 }
 
+.avatar { 
+  border-radius: 50%;
+  width: 25px;
+  margin-left: 90%;
+  margin-right: 0%;
+}
+
 .column{
   display: inline-table;
   background-color: rgb(116, 199, 240);
