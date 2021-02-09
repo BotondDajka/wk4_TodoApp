@@ -174,23 +174,31 @@ app.route("/api/board/:boardId")
             }
         }).then(async (user)=>{
             if (!user){
-                response.redirect("/")
+                response.status(403).send("Error 404").end()
             }
             else {
                 const boardId = request.params.boardId
                 if (boardId == "all"){
-                    await Board.findAll({
-                        include: [
-                            {model: Area, as: "areas",
-                            include:[
-                                {model: Task, as: "tasks"}
-                            ]}
-                        ]
-                    }).then(board=>{
-                        response.json(board).status(200).end()
-                    }).catch(error =>{
-                        response.status(404).send("Error 404").end()
-                    })
+
+                    let boards = [];
+                    let teamIds = []
+                    if (typeof(user.teamIdAssignedTo) == "number") teamIds = [user.teamIdAssignedTo]
+                    for (let i = 0; i <teamIds.length; i++){
+                        const teamId = teamIds[i]
+                        const board = await Board.findOne({
+                            where:{
+                                assignedTeamId: teamId
+                            },
+                            include: [
+                                {model: Area, as: "areas",
+                                include:[
+                                    {model: Task, as: "tasks"}
+                                ]}
+                            ]
+                        })
+                        boards.push(board) 
+                    }
+                    response.json(boards).status(200).end()
                 }
                 else{
                     await Board.findOne({
