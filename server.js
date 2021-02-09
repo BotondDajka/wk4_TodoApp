@@ -285,27 +285,23 @@ app.post("/api/board/:boardId/area/:areaId/task/:taskId/editTask", async (reques
             else{
                 const data = request.body
 
-                if (!data.title){
-                    response.status(400).send("Task object must contain property called 'title' ").end();
-                }
-                else if (!data.text){
-                    response.status(400).send("Task object must contain property called 'text' ").end();
-                }
-                else if (!data.labels){
-                    response.status(400).send("Task object must contain property called 'labels' ").end();
-                }
-                else if (!(data.labels instanceof Array)){
-                    response.status(400).send("Task labels must be an array").end();
-                }
-                else{
+                if (data.title){
                     task.title = data.title
-                    task.text = data.text
-                    task.labels = data.labels
-                    
-                    task.save();
-
-                    response.status(200).end()
                 }
+                if (data.text){
+                    task.text = data.text
+                }
+                if (data.labels){
+                    if (!(data.labels instanceof Array)){
+                        response.status(400).send("Task labels must be an array").end();
+                    }
+                    else{
+                        task.labels = data.labels
+                    }
+                }
+                task.save();
+
+                response.status(200).end()
             }
         }
     }
