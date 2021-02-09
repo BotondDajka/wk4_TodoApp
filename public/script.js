@@ -3,10 +3,10 @@ let boardId = null;
 
 // generate board when board is selected from navbar
 function generateBoard(id) {
-    document.getElementById('boardName').value = data.name
     document.getElementById('container').innerHTML = ""
     const boardId = id;
     $.get(`http://localhost:3000/api/board/${id}`, function(data) {
+        document.getElementById('boardName').value = data.name
         const boardTitle = document.getElementById('boardName')
         boardTitle.value = data.name
         boardTitle.onchange = function() { // function whenever title is updated
@@ -18,7 +18,7 @@ function generateBoard(id) {
                 boardTitle: textToUpdateTo
             }));
         }
-     
+
         for(let i = 0; i < data.areas.length; i++) {
             const currentArea = data.areas[i]
             const column = document.createElement('div')
