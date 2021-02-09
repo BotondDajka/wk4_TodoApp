@@ -47,6 +47,14 @@ function generateBoard(id) {
             ul.classList.add('connectedSortable')
             column.append(ul)
 
+            const plus = document.createElement('img')
+            plus.classList.add('plus')
+            column.append(plus)
+
+            const cross = document.createElement('img')
+            cross.classList.add('cross')
+            column.append(cross)
+
             container.append(column)
 
         
@@ -101,6 +109,13 @@ function generateBoard(id) {
                 ul.append(li)
             }
         }
+        const plus = document.createElement('img')
+        plus.classList.add('plus')
+        plus.id = "addBoard"
+        plus.style.margin = '2%'
+        plus.onclick = function(){addColumn(id)}
+        container.append(plus)
+
         $( function() {
             $( ".connectedSortable, .connectedSortable" ).sortable({
                 connectWith: ".connectedSortable",
@@ -136,4 +151,36 @@ function generateBoard(id) {
             this.style.height = (this.scrollHeight) + "px"; 
         });
     })
+}
+
+function addColumn(id) {
+    const column = document.createElement('div')
+    column.classList.add('column')
+
+    const columnTitle = document.createElement('textarea')
+    columnTitle.innerHTML = "New Column"
+    columnTitle.classList.add('edit')
+    columnTitle.style.fontSize = '30px'
+    column.append(columnTitle)
+
+    const ul = document.createElement('ul')
+    ul.classList.add('connectedSortable')
+    column.append(ul)
+
+    const plus = document.createElement('img')
+    plus.classList.add('plus')
+    column.append(plus)
+
+    const cross = document.createElement('img')
+    cross.classList.add('cross')
+    column.append(cross)
+
+    document.getElementById("addBoard").before(column)
+    
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", `http://localhost:3000/api/board/${id}/area/create`, true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify({
+            title: "New Column"
+    }));
 }
