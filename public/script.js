@@ -6,7 +6,17 @@ function generateBoard(id) {
     const boardId = id;
     $.get(`http://localhost:3000/api/board/${id}`, function(data) {
         // console.log(data)
-        document.getElementById('boardName').value = data.name
+        const boardTitle = document.getElementById('boardName')
+        boardTitle.value = data.name
+        boardTitle.onchange = function() { // function whenever title is updated
+            const textToUpdateTo = boardTitle.value
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", `http://localhost:3000/api/board/${boardId}/editTitle`, true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.send(JSON.stringify({
+                boardTitle: textToUpdateTo
+            }));
+        }
         for(let i = 0; i < data.areas.length; i++) {
             const currentArea = data.areas[i]
             const column = document.createElement('div')
@@ -49,12 +59,12 @@ function generateBoard(id) {
                 taskTitle.onchange = function() { // function whenever title is updated
                     const taskId = li.id.replace('task', '') // grab id and convert from string
                     const textToUpdateTo = taskTitle.value
-                    const areaId = document.getElementById(li.id).parentNode.parentNode.id
+                    const areaId = document.getElementById(li.id).parentNode.parentNode.id.replace('column', '')
                     var xhr = new XMLHttpRequest();
                     xhr.open("POST", `http://localhost:3000/api/board/${boardId}/area/${areaId}/task/${taskId}/editTask`, true);
                     xhr.setRequestHeader('Content-Type', 'application/json');
                     xhr.send(JSON.stringify({
-                        name: textToUpdateTo
+                        title: textToUpdateTo
                     }));
                 }
 
@@ -62,6 +72,17 @@ function generateBoard(id) {
                 taskText.classList.add('edit')
                 taskText.style.fontSize = '14px'
                 taskText.innerHTML = currentTask.text
+                taskText.onchange = function() { // function whenever title is updated
+                    const taskId = li.id.replace('task', '') // grab id and convert from string
+                    const textToUpdateTo = taskText.value
+                    const areaId = document.getElementById(li.id).parentNode.parentNode.id.replace('column', '')
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", `http://localhost:3000/api/board/${boardId}/area/${areaId}/task/${taskId}/editTask`, true);
+                    xhr.setRequestHeader('Content-Type', 'application/json');
+                    xhr.send(JSON.stringify({
+                        text: textToUpdateTo
+                    }));
+                }
 
                 const avatar = document.createElement('img')
                 avatar.src = 'https://www.w3schools.com/howto/img_avatar.png'
