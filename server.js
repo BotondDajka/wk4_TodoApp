@@ -101,6 +101,39 @@ app.route("/api/board/:boardId")
 })
 
 
+app.route("/api/board/:boardId/title")
+.get(async (request, response) =>{
+    const boardId = request.params.boardId
+    if (boardId == "all"){
+        await Board.findAll({
+            attributes: ["id", "name"],
+        })
+        .then(board=>{
+            response.json(board).status(200).end()
+        }).catch(error =>{
+            response.status(404).send("Error 404").end()
+        })
+    }
+    else{
+        await Board.findOne({
+            attributes: ["id", "name"],
+            where:{
+                id : boardId
+            },
+        }).then(board =>{
+            if (!board){
+                response.status(404).send("Error 404").end()
+            }else{
+                response.json(board).status(200).end()
+            }
+            
+        }).catch(error =>{
+            response.status(404).send("Error 404").end()
+        })
+    }
+})
+
+
 app.post("/api/board/:boardId/editTitle", async (request, response)=>{
     const boardId = request.params.boardId
     const board = await Board.findOne({
@@ -113,7 +146,6 @@ app.post("/api/board/:boardId/editTitle", async (request, response)=>{
     }
     else{
         const data = request.body
-        console.log(data[Object.keys(data)[0]])
         board.name = data[Object.keys(data)[0]]
         board.save()
         
@@ -155,6 +187,67 @@ app.post("/api/board/:boardId/area/:areaId/editTitle", async (request, response)
     }
 })
 
+
+app.post("/api/board/:boardId/area/:areaId/delete", async (request, response)=>{
+    const boardId = request.params.boardId
+    const areaId = request.params.areaId
+
+    const board = await Board.findOne({
+        where:{
+            id : boardId
+        }
+    })
+    if (!board){
+        response.status(404).send(`Board with id ${boardId} can not be found`).end()
+    }
+    else{
+        const area = await Area.findOne({
+            where:{
+                boardId: boardId,
+                id: areaId
+            }
+        })
+        if (!area){
+            response.status(404).send(`Area with id ${areaId} can not be found on board ${boardId}`).end()
+        }
+        else{
+    
+            area.destroy();
+    
+            response.status(200).end()
+        }
+    }
+})
+
+app.post("/api/board/:boardId/area/create", async (request, response)=>{
+    const boardId = request.params.boardId
+    
+
+    const board = await Board.findOne({
+        where:{
+            id : boardId
+        }
+    })
+    if (!board){
+        response.status(404).send(`Board with id ${boardId} can not be found`).end()
+    }
+    else{
+        const data = request.body
+
+        if (!data.title){
+            response.status(400).send("Area must contain property called 'title' ").end();
+        }
+
+        Area.create({title: data.title, boardId: boardId});
+
+        Area.sync()
+
+        response.status(200).end()
+    }
+})
+
+
+
 app.post("/api/board/:boardId/area/:areaId/task/:taskId/editTask", async (request, response) =>{
     const boardId = request.params.boardId
     const areaId = request.params.areaId
@@ -191,13 +284,13 @@ app.post("/api/board/:boardId/area/:areaId/task/:taskId/editTask", async (reques
             else{
                 const data = request.body
 
-                if (!(Object.keys(data)[0] == "title")){
+                if (!data.title){
                     response.status(400).send("Task object must contain property called 'title' ").end();
                 }
-                else if (!(Object.keys(data)[1] == "text")){
+                else if (!data.text){
                     response.status(400).send("Task object must contain property called 'text' ").end();
                 }
-                else if (!(Object.keys(data)[2] == "labels")){
+                else if (!data.labels){
                     response.status(400).send("Task object must contain property called 'labels' ").end();
                 }
                 else if (!(data.labels instanceof Array)){
@@ -212,11 +305,70 @@ app.post("/api/board/:boardId/area/:areaId/task/:taskId/editTask", async (reques
 
                     response.status(200).end()
                 }
-
             }
         }
     }
+})
 
+app.post("/api/board/:boardId/area/:areaId/task/:taskId/move", async (request, response)=>{
+    const boardId = request.params.boardId
+    const areaId = request.params.areaId
+    const taskId = request.params.taskId
+
+    const board = await Board.findOne({
+        where:{
+            id : boardId
+        }
+    })
+    if (!board){
+        response.status(404).send(`Board with id ${boardId} can not be found`).end()
+    }
+    else{
+        const area = await Area.findOne({
+            where:{
+                boardId: boardId,
+                id: areaId
+            }
+        })
+        if (!area){
+            response.status(404).send(`Area with id ${areaId} can not be found on board ${boardId}`).end()
+        }
+        else{
+            const task = await Task.findOne({
+                where:{
+                    areaId: areaId,
+                    id: taskId
+                }
+            })
+            if (!task){
+                response.status(404).send(`Task with id ${taskId} can not be found on area ${areaId} at board ${boardId}`).end()
+            }
+            else{
+                const data = request.body
+
+                if (!data.columnId){
+                    response.status(400).send("Sent object must contain property called 'columnId'").end();
+                }
+                else{
+                    const newArea = await Area.findOne({
+                        where:{
+                            boardId: boardId,
+                            id: data.columnId
+                        }
+                    })
+                    if (!newArea){
+                        response.status(404).send(`Area with id ${data.columnId} can not be found on board ${boardId}`).end()
+                    }
+                    else{
+                        task.areaId = data.columnId
+                        task.save();
+
+                        response.status(200).end()
+                    }
+                }
+            }
+        }
+    }
 })
 
 
