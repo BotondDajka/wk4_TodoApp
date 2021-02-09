@@ -57,8 +57,7 @@ function generateBoard(id) {
                 connectWith: ".connectedSortable",
                 dropOnEmpty: true,
                 receive: function( event, ui ) {
-                    console.log(ui.item["0"])
-                    console.log(lastParent.id)
+
 
                     const itemId = ui.item["0"].id.replace("task","")
                     const oldColumnId = lastParent.id.replace("column","")
