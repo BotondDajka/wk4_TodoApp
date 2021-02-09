@@ -19,15 +19,17 @@ app.set('view engine', 'handlebars')
 
 app.use(express.static("public"));
 
+// homepage
 app.get('/', async (request, response) => {
     response.render("homePage");
 })
 
-
+// retrive board
 app.get('/board/', async (request, response) => {
     response.render("boardPage");
 })
 
+// retrive all boards
 app.get('/boardsList/', async (request, response) => {
     response.render("boardsListPage");
 })
@@ -38,3 +40,11 @@ app.get('/boardsList/', async (request, response) => {
 app.listen(port, ()=>{
     console.log(`Server running at http://localhost:${port}`);
 })
+
+
+app.post("/api/board/:boardId/delete", async (request, response)=>{
+    const boardId = request.params.boardId
+    const board = await Board.findOne({
+        where:{
+            id : boardId
+        }

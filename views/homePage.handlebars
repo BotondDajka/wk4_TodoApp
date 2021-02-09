@@ -1,20 +1,64 @@
 
          <link rel="stylesheet" href="http://localhost:3000/homeStyle.css"/>
          <div class="wrapper">
-             <div class="logo">
-             </div> 
              <ul class="nav-area">
-                 <li><a href="#">Login</a></li>
+                 <li><a href="#">My Teams</a></li>
                  <li><a href="#">Register</a></li>
-                 <li><a href="#">Create Project Board</a></li>
+                 <div class="dropdown">
+                 <span>Create Project </span>
+                 <div class="dropdown-content">
+                 <p>My Projects</p>
+                 <p>Create Project</p>
+                 </div>
+                 {{!-- <li><a href="#">Create Project Board</a></li> --}}
             </ul> 
             </div>
+            
 
-            <div class="Welcome-text">
+             <form action="/action_page.php">
+      <input type="text" placeholder="Username" name="username"><br>
+      <input type="text" placeholder="Password" name="psw">
+      <button type="submit">Login</button>
+    </form>
+
+
+             <header>
+             <div class="header">
                 <h1>To-Do App</h1>
-            <img src="http://www.workflowmax.com/hubfs/6-things-to-do-list.png" alt="Trulli" width="500" height="333">
-            <h1>Team work Makes the dream work</h1>
-            <button>Start Project Board</button>
+
+
+           
+            <p>Team work Makes the dream work</p>
             </div>
+        
+            </header>
+        
+
+            <div class="p1">   
+             <h1> About</h1>
+            <p>allows you to work on group projects allowing you to work on a platform where teams can collaberate and design projects whilst keeping track</p>
+            
+            </div>
+
+
+            <div class="img1">
+
+                <img src="https://image.shutterstock.com/image-illustration/high-resolution-strategy-concept-600w-195219530.jpg" alt="">
+
+
+            </div>
+
+            <div class="column">
+            <h2>Column</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sit amet pretium urna. Vivamus venenatis velit nec neque ultricies, eget elementum magna tristique. Quisque vehicula, risus eget aliquam placerat, purus leo tincidunt eros, eget luctus quam orci in velit. Praesent scelerisque tortor sed accumsan convallis.</p>
+            </div>
+
+            <footer>
+             
+             
+
+            <button>Start Project Board</button>
+            
+            </footer>
             
 
