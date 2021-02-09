@@ -1,6 +1,7 @@
 [
    {
     "name": "My Scrum board 1",
+    "team": 1,
     "areas": [
         {
             "title": "Ideas/Suggestions",
@@ -43,6 +44,7 @@
    },
    {
     "name": "My Scrum board 2",
+    "team": 2,
     "areas": [
         {
             "title": "Todo",
@@ -108,6 +110,7 @@
    },
    {
     "name": "My Scrum board 3",
+    "team": 3,
     "areas": [
         {
             "title": "To be completed",

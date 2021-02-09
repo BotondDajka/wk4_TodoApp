@@ -15,7 +15,7 @@ async function loadBoards(data) {
     let areaIndex = 1
     for(let i = 0; i < data.length; i++) {
         const currentBoard = data[i]
-        await Board.create({name: currentBoard.name})
+        await Board.create({name: currentBoard.name, assignedTeamId: currentBoard.team})
 
         for(let j = 0; j < currentBoard.areas.length; j++) {
             const currentArea = currentBoard.areas[j]

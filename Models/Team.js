@@ -17,8 +17,8 @@ Team.init({
 })
 
 // define associations
-Team.hasMany(Board, {as: 'boards', foreignKey: 'teamId'})
-Board.belongsTo(Team, {foreignKey: 'teamId'})
-Team.hasMany(User, {as: 'users', foreignKey: 'teamId'})
+Team.hasMany(Board, {as: 'boards', foreignKey: 'assignedTeamId'})
+Board.belongsTo(Team, {foreignKey: 'assignedTeamId'})
+//Team.hasMany(User, {as: 'users', foreignKey: 'teamId'})
 
 module.exports = { Team }

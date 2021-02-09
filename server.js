@@ -3,14 +3,20 @@ const Handlebars = require('handlebars');
 const expressHandlebars = require('express-handlebars');
 const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access');
 const { Op } = require("sequelize");
-const { request, response } = require("express");
 
-const bodyParser = require('body-parser');
+
+const cookieParser = require('cookie-parser');  // Session Auth
+const session = require('express-session');     // Session Auth
+const bodyParser = require('body-parser');      // Session Auth
+const bcrypt = require('bcryptjs');
 const cors = require('cors')
 
 const { Board } = require('./Models/Board')
 const { Area } = require('./Models/Area')
 const { Task } = require('./Models/Task')
+
+const { User } = require("./Models/User")
+const { Team } = require("./Models/Team")
 
 
 const app = express();
@@ -28,21 +34,117 @@ app.use(express.static("public"));
 
 app.use(cors())
 
+app.use(cookieParser());
+
 
 // read data as if it is JSON
 app.use(bodyParser.json({type:"application/json"}));
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
+app.use(session({
+    key: "user_sid",
+    secret: "something",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        secure: false,
+        expires: new Date(253402300000000)
+    }
+}));
 
-app.get('/', async (request, response) => {
-    response.render("homePage");
+// Clear cookies on server restart
+app.use((request, response, next)=>{
+    if (request.cookies.user_sid && !request.session.user){
+        response.clearCookie("user_sid")
+    }
+    next();
 })
+
+app.route("/")
+    .get(async (request, response) => {
+        response.render("homePage");
+    })
+    .post(async (request, response) =>{
+        console.log(request.body)
+        const username = request.body.username;
+        const password = request.body.password;
+
+        User.findOne({
+            where:{
+                [Op.and]: [
+                    {username: username},
+                    {password: password}
+                ]
+            }
+        }).then((user)=>{
+            if (!user){
+                response.redirect("/")
+            }
+            else { 
+                request.session.user = user.dataValues;
+                response.redirect("/board")
+            }
+
+        }).catch((err)=>{
+            response.redirect("/")
+        })
+    })
+
+app.post("/register", async (request, response) =>{
+
+})
+
+app.get("/logout", async (request, response) => {
+    if (request.session.user && request.cookies.user_sid) {
+        response.clearCookie('user_sid');
+        response.redirect('/');
+    } else {
+        response.redirect('/');
+    }
+});
 
 
 app.get('/board/', async (request, response) => {
     const boards = await Board.findAll()
-    response.render("boardPage", { boards });
+    
+    if (request.session.user && request.cookies.user_sid) {
+        User.findOne({
+            where:{
+                [Op.and]: [
+                    {username: request.session.user.username},
+                    {password: request.session.user.password}
+                ]
+            }
+        }).then(async (user)=>{
+            if (!user){
+                response.redirect("/")
+            }
+            else {
+                let boards = [];
+                let teamIds = []
+                if (typeof(user.teamIdAssignedTo) == "number") teamIds = [user.teamIdAssignedTo]
+                for (let i = 0; i <teamIds.length; i++){
+                    const teamId = teamIds[i]
+                    const board = await Board.findOne({
+                        where:{
+                            assignedTeamId: teamId
+                        }
+                    })
+                    boards.push(board) 
+                }
+                response.render("boardPage", { boards: boards, displayName: user.displayName});
+            }
+
+        }).catch((err)=>{
+            response.redirect("/")
+        })
+    }
+    else{
+        response.redirect("/")
+    }
+
+
 })
 
 app.get('/boardsList/', async (request, response) => {
@@ -54,7 +156,6 @@ app.post('/api/board/createBoard', async (request, response) => {
     if(!data.name) { // ensure some sort of data is given
         throw new Error('Board must have name in order to be added.')
     } else {
-        console.log(data)
         await Board.create({name: data.name})
         response.redirect('/boardsList')
     }
@@ -62,42 +163,64 @@ app.post('/api/board/createBoard', async (request, response) => {
 
 app.route("/api/board/:boardId")
 .get(async (request, response) =>{
-    const boardId = request.params.boardId
-    if (boardId == "all"){
-        await Board.findAll({
-            include: [
-                {model: Area, as: "areas",
-                include:[
-                    {model: Task, as: "tasks"}
-                ]}
-            ]
-        }).then(board=>{
-            response.json(board).status(200).end()
-        }).catch(error =>{
-            response.status(404).send("Error 404").end()
+
+    if (request.session.user && request.cookies.user_sid) {
+        User.findOne({
+            where:{
+                [Op.and]: [
+                    {username: request.session.user.username},
+                    {password: request.session.user.password}
+                ]
+            }
+        }).then(async (user)=>{
+            if (!user){
+                response.redirect("/")
+            }
+            else {
+                const boardId = request.params.boardId
+                if (boardId == "all"){
+                    await Board.findAll({
+                        include: [
+                            {model: Area, as: "areas",
+                            include:[
+                                {model: Task, as: "tasks"}
+                            ]}
+                        ]
+                    }).then(board=>{
+                        response.json(board).status(200).end()
+                    }).catch(error =>{
+                        response.status(404).send("Error 404").end()
+                    })
+                }
+                else{
+                    await Board.findOne({
+                        where:{
+                            id : boardId
+                        },
+                        include: [
+                            {model: Area, as: "areas",
+                            include:[
+                                {model: Task, as: "tasks"}
+                            ]}
+                        ]
+                    }).then(board =>{
+                        if (!board){
+                            response.status(404).send("Error 404").end()
+                        }else{
+                            response.json(board).status(200).end()
+                        }
+                        
+                    }).catch(error =>{
+                        response.status(404).send("Error 404").end()
+                    })
+                }
+            }
+        }).catch((err)=>{
+            response.status(403).send("Error 404").end()
         })
     }
     else{
-        await Board.findOne({
-            where:{
-                id : boardId
-            },
-            include: [
-                {model: Area, as: "areas",
-                include:[
-                    {model: Task, as: "tasks"}
-                ]}
-            ]
-        }).then(board =>{
-            if (!board){
-                response.status(404).send("Error 404").end()
-            }else{
-                response.json(board).status(200).end()
-            }
-            
-        }).catch(error =>{
-            response.status(404).send("Error 404").end()
-        })
+        response.status(403).send("Error 404").end()
     }
 })
 
