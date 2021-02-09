@@ -5,8 +5,9 @@
   <div class="dropdown">
     <button class="dropbtn">Boards</button>
     <div class="dropdown-content">
-      <a href="#">Board 1</a>
-      <a href="#">Board 2</a>
+      {{#each boards}}
+        <a onclick="generateBoard({{this.id}})">{{this.name}}</a>
+      {{/each}}
     </div>
   </div> 
   <div class="dropdown">
@@ -18,14 +19,14 @@
       <a href="#">User 4</a>
     </div>
   </div> 
-  <input type="text" class="title" value="Board Name" style="font-size: 38px;">
+  <input id="boardName" type="text" class="title" value="Board Name" style="font-size: 38px;">
 </div>
 
 <!-- BOARD -->
-<div class="flex-container">
+<div id="container" class="flex-container">
   <div class="column">
     <input type="text" class="edit" value="To Do" style="font-size: 30px;">
-    <ul id="sortable2" class="connectedSortable">
+    <ul id="sortable" class="connectedSortable">
       <li class="task">
         <input type="text" class="edit" value="Task 1" style="font-size: 22px;">
         <textarea class="edit" style="font-size: 14px;">Description</textarea>
@@ -40,7 +41,7 @@
 
   <div class="column">
     <input type="text" class="edit" value="Doing" style="font-size: 30px;">
-    <ul id="sortable2" class="connectedSortable">
+    <ul id="sortable" class="connectedSortable">
       <li class="task">
         <input type="text" class="edit" value="Task 3" style="font-size: 22px;">
         <textarea class="edit" style="font-size: 14px;">Description</textarea>
@@ -51,19 +52,14 @@
 
   <div class="column">
     <input type="text" class="edit" value="Doing" style="font-size: 30px;">
-    <ul id="sortable2" class="connectedSortable">
+    <ul id="sortable" class="connectedSortable">
     </ul>
   </div>
 </div>
 
-
+<script src="http://localhost:3000/script.js" type="text/javascript"></script>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
-  $( function() {
-    $( "#sortable1, #sortable2, #sortable3" ).sortable({
-      connectWith: ".connectedSortable",
-      dropOnEmpty: true
-    }).disableSelection();
-  } );
+
 </script>
