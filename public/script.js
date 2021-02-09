@@ -17,6 +17,7 @@ function generateBoard(id) {
             xhr.send(JSON.stringify({
                 boardTitle: textToUpdateTo
             }));
+            document.getElementById(`dropdown${boardId}`).innerText = textToUpdateTo
         }
 
         for(let i = 0; i < data.areas.length; i++) {

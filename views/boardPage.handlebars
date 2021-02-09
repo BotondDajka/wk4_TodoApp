@@ -6,7 +6,7 @@
     <button class="dropbtn">Boards</button>
     <div class="dropdown-content">
       {{#each boards}}
-        <a onclick="generateBoard({{this.id}})">{{this.name}}</a>
+        <a id="dropdown{{this.id}}" onclick="generateBoard({{this.id}})">{{this.name}}</a>
       {{/each}}
     </div>
   </div> 
