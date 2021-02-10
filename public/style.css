@@ -62,6 +62,11 @@ h1{
   float: right;
 }
 
+.delete-board-button{
+  float: right;
+  margin: 0;
+}
+
 .column{
   display: inline-table;
   background-color: rgb(116, 199, 240);
