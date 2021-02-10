@@ -449,7 +449,7 @@ app.post("/api/board/:boardId/area/:areaId/task/createTask", async (request, res
             response.status(404).send("Error area not found").end
         }       
         
-        response.status(200).end
+        response.status(200).end()
     }
 })
 
