@@ -215,7 +215,7 @@ app.post("/api/board/:boardId/area/:areaId/delete", async (request, response)=>{
     
             area.destroy();
     
-            response.status(200).end()
+            response.sendStatus(200)
         }
     }
 })
@@ -242,7 +242,6 @@ app.post("/api/board/:boardId/area/create", async (request, response)=>{
         Area.create({title: data.title, boardId: boardId});
 
         Area.sync()
-
         response.status(200).end()
     }
 })
