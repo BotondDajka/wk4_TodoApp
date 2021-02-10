@@ -95,6 +95,7 @@ function generateBoard(id) {
 
             const cross = document.createElement('img')
             cross.classList.add('cross')
+            cross.onclick = function(){deleteColumn(id, currentArea.id)}
             column.append(cross)
 
             container.append(column)
@@ -223,8 +224,31 @@ function addColumn(id) {
     
     var xhr = new XMLHttpRequest();
     xhr.open("POST", `http://localhost:3000/api/board/${id}/area/create`, true);
-        xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.send(JSON.stringify({
-            title: "New Column"
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(JSON.stringify({
+        title: "New Column"
     }));
+
+    generateBoard(id)
+}
+
+
+function displayNewBoardForm() {
+    const form = document.querySelector('#new-board-form')
+    form.style.display === "none" ? form.style.display = "block" : form.style.display = "none"
+}
+
+function deleteColumn(id, areaId) {
+   $.ajax({
+    type: "POST",
+    url: `http://localhost:3000/api/board/${id}/area/${areaId}/delete`,
+    // The key needs to match your method's input parameter (case-sensitive).
+    data: JSON.stringify({}),
+    success: function(){
+        generateBoard(id)
+    },
+    contentType: "application/json; charset=utf-8",
+});
+
+
 }
