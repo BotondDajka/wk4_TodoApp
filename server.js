@@ -372,3 +372,84 @@ app.post("/api/board/:boardId/area/:areaId/task/:taskId/move", async (request, r
 app.listen(port, ()=>{
     console.log(`Server running at http://localhost:${port}`);
 })
+
+
+// This is the delete function for the board
+app.post("/api/board/:boardId/delete", async (request, response)=>{
+    const boardId = request.params.boardId
+    const board = await Board.findOne({
+        where:{
+            id : boardId
+        }
+    })
+    if (!board){
+        response.status(404).send(`Board with id ${boardId} can not be found`).end()
+    }
+    else{
+        board.destroy();
+        response.status(200).end()
+        
+    }
+})
+
+// create a new tasks
+app.post("/api/board/:boardId/area/:areaId/task/createTask", async (request, response) =>{
+    const boardId = request.params.boardId
+    const areaId = request.params.areaId
+    const board = await Board.findOne({
+        
+        where:{
+            id : boardId
+        }
+    })
+    if (!board){
+        response.status(404).send(`Board with id ${boardId} can not be found`).end()
+    }
+    else{
+        // retrieve all the areas for the board
+        const areas = await board.getAreas()
+        // loop and find the specific area
+        let areaFound = false;
+        for (i=0; i<areas.length; i++) {
+            if (areas[i].id == areaId) {
+                areaFound = true;
+                const selectedArea = areas[i];
+
+                const data = request.body;
+                console.log(data)
+                let title;
+                let text;
+                let labels;
+
+                if (data.title){
+                    title = data.title
+
+                }
+                if (data.text){
+                    text = data.text
+                }
+                if (data.labels){
+                    if (!(data.labels instanceof Array)){
+                        response.status(400).send("Task labels must be an array").end();
+                    }
+                    else{
+                        labels = data.labels
+                    }
+                }
+                const newTask = await Task.create({title: title,
+                text:text, labels:labels});
+               
+                await selectedArea.addTask(newTask);
+
+                break; 
+            }
+        } // end for
+
+        if (!areaFound){
+            response.status(404).send("Error area not found").end
+        }       
+        
+        response.status(200).end
+    }
+})
+
