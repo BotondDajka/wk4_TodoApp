@@ -11,6 +11,7 @@ function generateBoard(id) {
         boardTitle.value = data.name
         boardTitle.onchange = function() { // function whenever title is updated
             const textToUpdateTo = boardTitle.value
+            // update board record with new title
             var xhr = new XMLHttpRequest();
             xhr.open("POST", `http://localhost:3000/api/board/${boardId}/editTitle`, true);
             xhr.setRequestHeader('Content-Type', 'application/json');
@@ -36,6 +37,7 @@ function generateBoard(id) {
                 const id = column.id.replace('column', '') // grab id and convert from string
                 const textToUpdateTo = columnTitle.value
                 var xhr = new XMLHttpRequest();
+                // update area record with new title
                 xhr.open("POST", `http://localhost:3000/api/board/${boardId}/area/${id}/editTitle`, true);
                 xhr.setRequestHeader('Content-Type', 'application/json');
                 xhr.send(JSON.stringify({
@@ -50,6 +52,45 @@ function generateBoard(id) {
 
             const plus = document.createElement('img')
             plus.classList.add('plus')
+            plus.onclick = function() {
+                const task = document.createElement('li')
+                task.classList.add('task')
+                task.classList.add('ui-sortable-handle')
+
+                const taskTitle = document.createElement('textarea')
+                taskTitle.classList.add('edit')
+                taskTitle.style.fontSize = '22px'
+
+                const taskText = document.createElement('textarea')
+                taskText.classList.add('edit')
+                taskText.style.fontSize = '14px'
+
+                taskTitle.innerHTML = 'New task'
+                taskText.innerHTML = 'Add description here'
+
+                // add event listeners
+                taskTitle.onchange = function() {
+                    console.log(taskTitle.value)
+                }
+
+                taskText.onchange = function() {
+                    console.log(taskText.value)
+                }
+
+                task.append(taskTitle)
+                task.append(taskText)
+
+                ul.append(task)
+
+                // insert new task into task table
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", ``, true);
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.send(JSON.stringify({
+                    title: taskTitle.innerHTML,
+                    text: taskText.innerHTML
+                }));
+            }
             column.append(plus)
 
             const cross = document.createElement('img')
@@ -75,6 +116,7 @@ function generateBoard(id) {
                     const taskId = li.id.replace('task', '') // grab id and convert from string
                     const textToUpdateTo = taskTitle.value
                     const areaId = document.getElementById(li.id).parentNode.parentNode.id.replace('column', '')
+                    // update task title in task record
                     var xhr = new XMLHttpRequest();
                     xhr.open("POST", `http://localhost:3000/api/board/${boardId}/area/${areaId}/task/${taskId}/editTask`, true);
                     xhr.setRequestHeader('Content-Type', 'application/json');
@@ -91,6 +133,7 @@ function generateBoard(id) {
                     const taskId = li.id.replace('task', '') // grab id and convert from string
                     const textToUpdateTo = taskText.value
                     const areaId = document.getElementById(li.id).parentNode.parentNode.id.replace('column', '')
+                    // update task text/description in task record
                     var xhr = new XMLHttpRequest();
                     xhr.open("POST", `http://localhost:3000/api/board/${boardId}/area/${areaId}/task/${taskId}/editTask`, true);
                     xhr.setRequestHeader('Content-Type', 'application/json');
