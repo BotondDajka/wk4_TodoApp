@@ -4,6 +4,12 @@
   flex-wrap: wrap;
 }
 
+#new-board-button:hover {
+  cursor: pointer;
+  transform: scale(1.2);
+  transition-duration: 0.2s;
+}
+
 body{
   margin: 0;
   padding-top: 0;

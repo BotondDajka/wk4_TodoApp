@@ -189,6 +189,12 @@ function addColumn(id) {
     generateBoard(id)
 }
 
+
+function displayNewBoardForm() {
+    const form = document.querySelector('#new-board-form')
+    form.style.display === "none" ? form.style.display = "block" : form.style.display = "none"
+}
+
 function deleteColumn(id, areaId) {
    $.ajax({
     type: "POST",
@@ -200,5 +206,6 @@ function deleteColumn(id, areaId) {
     },
     contentType: "application/json; charset=utf-8",
 });
+
 
 }

@@ -56,7 +56,7 @@ app.post('/api/board/createBoard', async (request, response) => {
     } else {
         console.log(data)
         await Board.create({name: data.name})
-        response.redirect('/boardsList')
+        response.redirect('/board')
     }
 })
 

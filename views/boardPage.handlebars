@@ -20,7 +20,16 @@
     </div>
   </div> 
   <input id="boardName" type="text" class="title" value="Board Name" style="font-size: 38px;">
+  <img id="new-board-button" onclick="displayNewBoardForm()" style="float: right; margin: 0; padding: 10px 5px" class="plus" />
 </div>
+
+<!-- FORM FOR CREATING NEW BOARDS -->
+<div id="new-board-form" style="display: none; padding: 5px; float: right; background: rgb(116, 199, 240);">
+    <form action="/api/board/createBoard" method="POST">
+      <input required type="text" name="name" id="name" placeholder="Board name">
+      <input type="Submit">
+    </form>
+  </div>
 
 <!-- BOARD -->
 <div id="container" class="flex-container">
