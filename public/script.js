@@ -185,3 +185,8 @@ function addColumn(id) {
             title: "New Column"
     }));
 }
+
+function displayNewBoardForm() {
+    const form = document.querySelector('#new-board-form')
+    form.style.display === "none" ? form.style.display = "block" : form.style.display = "none"
+}
