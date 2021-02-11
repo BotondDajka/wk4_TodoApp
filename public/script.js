@@ -4,6 +4,7 @@ let boardId = null;
 // generate board when board is selected from navbar
 function generateBoard(id) {
     document.getElementById('container').innerHTML = ""
+    document.getElementById('delete-board-button').innerHTML = `<img onclick="deleteBoard(${id})" style="float: right; margin: 0; padding: 10px 5px" class="cross" />`
     const boardId = id;
     $.get(`http://localhost:3000/api/board/${id}`, function(data) {
         document.getElementById('boardName').value = data.name
@@ -258,6 +259,7 @@ function displayNewBoardForm() {
     form.style.display === "none" ? form.style.display = "block" : form.style.display = "none"
 }
 
+
 function deleteColumn(id, areaId) {
    $.ajax({
     type: "POST",
@@ -271,3 +273,17 @@ function deleteColumn(id, areaId) {
 });
 }
 
+
+
+function deleteBoard(id) {
+    $.ajax({
+        type: "POST",
+        url: `http://localhost:3000/api/board/${id}/delete`,
+        // The key needs to match your method's input parameter (case-sensitive).
+        data: JSON.stringify({}),
+        success: function(){
+            window.location.href = "http://localhost:3000/board";
+        },
+        contentType: "application/json; charset=utf-8",
+    });
+}
