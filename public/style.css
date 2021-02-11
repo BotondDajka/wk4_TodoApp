@@ -53,7 +53,11 @@ h1{
   border-radius: 50%;
   width: 35px;
   height: 35px;
+  box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.75);
 }
+
+
+
 
 .plus:hover {
   cursor: pointer;
@@ -70,6 +74,7 @@ h1{
   width: 35px;
   height: 35px;
   float: right;
+  box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.75);
 }
 
 .delete-board-button{
@@ -100,6 +105,7 @@ h1{
 }
 
 .task {
+  position: relative;
   cursor: grab;
   min-height: 3.5em;
   height: auto;

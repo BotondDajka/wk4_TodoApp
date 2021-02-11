@@ -251,6 +251,7 @@ app.post("/api/board/:boardId/area/create", async (request, response)=>{
 
 
 
+
 app.post("/api/board/:boardId/area/:areaId/task/:taskId/editTask", async (request, response) =>{
     const boardId = request.params.boardId
     const areaId = request.params.areaId
@@ -308,6 +309,53 @@ app.post("/api/board/:boardId/area/:areaId/task/:taskId/editTask", async (reques
         }
     }
 })
+
+app.post("/api/board/:boardId/area/:areaId/task/:taskId/delete", async (request, response) =>{
+    const boardId = request.params.boardId
+    const areaId = request.params.areaId
+    const taskId = request.params.taskId
+
+    const board = await Board.findOne({
+        where:{
+            id : boardId
+        }
+    })
+    if (!board){
+        response.status(404).send(`Board with id ${boardId} can not be found`).end()
+    }
+    else{
+        const area = await Area.findOne({
+            where:{
+                boardId: boardId,
+                id: areaId
+            }
+        })
+        if (!area){
+            response.status(404).send(`Area with id ${areaId} can not be found on board ${boardId}`).end()
+        }
+        else{
+            const task = await Task.findOne({
+                where:{
+                    areaId: areaId,
+                    id: taskId
+                }
+            })
+            if (!task){
+                response.status(404).send(`Task with id ${taskId} can not be found on area ${areaId} at board ${boardId}`).end()
+            }
+            else{
+
+                await task.destroy()
+                response.status(200).end()
+            }
+        }
+    }
+})
+
+
+
+
+
 
 app.post("/api/board/:boardId/area/:areaId/task/:taskId/move", async (request, response)=>{
     const boardId = request.params.boardId

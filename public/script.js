@@ -4,7 +4,7 @@ let boardId = null;
 // generate board when board is selected from navbar
 function generateBoard(id) {
     document.getElementById('container').innerHTML = ""
-    document.getElementById('delete-board-button').innerHTML = `<img onclick="deleteBoard(${id})" style="float: right; margin: 0; padding: 10px 5px" class="cross" />`
+    document.getElementById('delete-board-button').innerHTML = `<img onclick="deleteBoard(${id})" style="float: right; margin: 0; padding: 10px 5px; box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.75);" class="cross" />`
     boardId = id;
 
     $.get(`http://localhost:3000/api/board/${id}`, function(data) {
@@ -140,6 +140,22 @@ function generateBoard(id) {
                 li.append(taskText)
                 li.append(avatar)
 
+
+                const taskDeleteBtn = document.createElement("img")
+
+                taskDeleteBtn.classList.add("cross")
+                taskDeleteBtn.style.position = "absolute"
+                taskDeleteBtn.style.right = "-5px"
+                taskDeleteBtn.style.top = "-5px"
+                taskDeleteBtn.style.width = "20px"
+                taskDeleteBtn.style.height = "20px"
+
+                taskDeleteBtn.onclick =  function(){deleteTask(column.id, li.id)} 
+
+                li.append(taskDeleteBtn)
+
+
+
                 ul.append(li)
             }
         }
@@ -161,7 +177,7 @@ function generateBoard(id) {
                     const oldColumnId = lastParent.id.replace("column","")
                     const newColumnId = ui.item["0"].parentNode.parentNode.id.replace("column","")
 
-                    console.log(newColumnId)
+                    
                     
                     $.ajax({
                         type: "POST",
@@ -244,7 +260,7 @@ function addColumn(id) {
                 const oldColumnId = lastParent.id.replace("column","")
                 const newColumnId = ui.item["0"].parentNode.parentNode.id.replace("column","")
 
-                console.log(newColumnId)
+                
                 
                 $.ajax({
                     type: "POST",
@@ -308,7 +324,7 @@ function addTask(columnId) {
         taskText.style.fontSize = '14px'
         taskText.value = "Add task description here"
         
-        taskTitle.onchange = function() { // function whenever title is updated  // FIXME
+        taskTitle.onchange = function() { // function whenever title is updated  
             //const taskId = li.id.replace('task', '') // grab id and convert from string
             const textToUpdateTo = taskTitle.value
             //const areaId = document.getElementById(li.id).parentNode.parentNode.id.replace('column', '')
@@ -336,6 +352,23 @@ function addTask(columnId) {
         
         task.append(taskTitle)
         task.append(taskText)
+
+        const taskDeleteBtn = document.createElement("img")
+
+        taskDeleteBtn.classList.add("cross")
+        taskDeleteBtn.style.position = "absolute"
+        taskDeleteBtn.style.right = "-5px"
+        taskDeleteBtn.style.top = "-5px"
+        taskDeleteBtn.style.width = "20px"
+        taskDeleteBtn.style.height = "20px"
+
+        taskDeleteBtn.onclick =  function(){deleteTask("column"+areaId, "task"+taskId)} 
+
+        task.append(taskDeleteBtn)
+
+
+
+
         document.getElementById(queryColumnId).querySelector(".connectedSortable").append(task)
 
 
@@ -349,7 +382,7 @@ function addTask(columnId) {
                 const oldColumnId = lastParent.id.replace("column","")
                 const newColumnId = ui.item["0"].parentNode.parentNode.id.replace("column","")
 
-                console.log(newColumnId)
+                
                 const sanitizedItemId = itemId.replace("task", "")
                 $.ajax({
                     type: "POST",
@@ -419,6 +452,23 @@ function deleteBoard(id) {
         data: JSON.stringify({}),
         success: function(){
             window.location.href = "http://localhost:3000/board";
+        },
+        contentType: "application/json; charset=utf-8",
+    });
+}
+
+
+function deleteTask(columnId, taskId){
+
+    const sanitizedColumnId = columnId.replace("column", "")
+    const sanitizedTaskId = taskId.replace("task", "")
+    $.ajax({
+        type: "POST",
+        url: `http://localhost:3000/api/board/${boardId}/area/${sanitizedColumnId}/task/${sanitizedTaskId}/delete`,
+
+        data: JSON.stringify({}),
+        success: function(){
+            document.getElementById(taskId).remove()
         },
         contentType: "application/json; charset=utf-8",
     });
