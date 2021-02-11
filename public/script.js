@@ -12,6 +12,7 @@ function generateBoard(id) {
         boardTitle.value = data.name
         boardTitle.onchange = function() { // function whenever title is updated
             const textToUpdateTo = boardTitle.value
+            // update board record with new title
             var xhr = new XMLHttpRequest();
             xhr.open("POST", `http://localhost:3000/api/board/${boardId}/editTitle`, true);
             xhr.setRequestHeader('Content-Type', 'application/json');
@@ -37,6 +38,7 @@ function generateBoard(id) {
                 const id = column.id.replace('column', '') // grab id and convert from string
                 const textToUpdateTo = columnTitle.value
                 var xhr = new XMLHttpRequest();
+                // update area record with new title
                 xhr.open("POST", `http://localhost:3000/api/board/${boardId}/area/${id}/editTitle`, true);
                 xhr.setRequestHeader('Content-Type', 'application/json');
                 xhr.send(JSON.stringify({
@@ -51,6 +53,8 @@ function generateBoard(id) {
 
             const plus = document.createElement('img')
             plus.classList.add('plus')
+            plus.onclick = function() {addTask(boardId, column.id)}
+
             column.append(plus)
 
             const cross = document.createElement('img')
@@ -77,6 +81,7 @@ function generateBoard(id) {
                     const taskId = li.id.replace('task', '') // grab id and convert from string
                     const textToUpdateTo = taskTitle.value
                     const areaId = document.getElementById(li.id).parentNode.parentNode.id.replace('column', '')
+                    // update task title in task record
                     var xhr = new XMLHttpRequest();
                     xhr.open("POST", `http://localhost:3000/api/board/${boardId}/area/${areaId}/task/${taskId}/editTask`, true);
                     xhr.setRequestHeader('Content-Type', 'application/json');
@@ -93,6 +98,7 @@ function generateBoard(id) {
                     const taskId = li.id.replace('task', '') // grab id and convert from string
                     const textToUpdateTo = taskText.value
                     const areaId = document.getElementById(li.id).parentNode.parentNode.id.replace('column', '')
+                    // update task text/description in task record
                     var xhr = new XMLHttpRequest();
                     xhr.open("POST", `http://localhost:3000/api/board/${boardId}/area/${areaId}/task/${taskId}/editTask`, true);
                     xhr.setRequestHeader('Content-Type', 'application/json');
@@ -190,6 +196,70 @@ function addColumn(id) {
     generateBoard(id)
 }
 
+function addTask(boardId, columnId) {
+    const queryColumnId = columnId.replace('column', '')
+
+    const task = document.createElement('li')
+    task.classList.add('task')
+    task.classList.add('ui-sortable-handle')
+    
+    const taskTitle = document.createElement('textarea')
+    taskTitle.classList.add('edit')
+    taskTitle.style.fontSize = '22px'
+    taskTitle.value = "New task"
+
+    const taskText = document.createElement('textarea')
+    taskText.classList.add('edit')
+    taskText.style.fontSize = '14px'
+    taskText.value = "Add task description here"
+
+    taskTitle.onchange = function() { // function whenever title is updated
+        const taskId = li.id.replace('task', '') // grab id and convert from string
+        const textToUpdateTo = taskTitle.value
+        const areaId = document.getElementById(li.id).parentNode.parentNode.id.replace('column', '')
+        // update task title in task record
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", `http://localhost:3000/api/board/${boardId}/area/${areaId}/task/${taskId}/editTask`, true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify({
+            title: textToUpdateTo
+        }));
+    }
+
+    taskText.onchange = function() { // function whenever title is updated
+        const taskId = li.id.replace('task', '') // grab id and convert from string
+        const textToUpdateTo = taskText.value
+        const areaId = document.getElementById(li.id).parentNode.parentNode.id.replace('column', '')
+        // update task text/description in task record
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", `http://localhost:3000/api/board/${boardId}/area/${areaId}/task/${taskId}/editTask`, true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify({
+            text: textToUpdateTo
+        }));
+    }
+
+    task.append(taskTitle)
+    task.append(taskText)
+    document.getElementById(columnId).append(task)
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", `http://localhost:3000/api/board/${boardId}/area/${queryColumnId}/task/createTask`, true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(JSON.stringify({
+        title: taskTitle.value,
+        text: taskText.value
+    }));
+
+    generateBoard(boardId)
+}
+
+function displayNewBoardForm() {
+    const form = document.querySelector('#new-board-form')
+    form.style.display === "none" ? form.style.display = "block" : form.style.display = "none"
+}
+
+
 function deleteColumn(id, areaId) {
    $.ajax({
     type: "POST",
@@ -203,10 +273,7 @@ function deleteColumn(id, areaId) {
 });
 }
 
-function displayNewBoardForm() {
-    const form = document.querySelector('#new-board-form')
-    form.style.display === "none" ? form.style.display = "block" : form.style.display = "none"
-}
+
 
 function deleteBoard(id) {
     $.ajax({

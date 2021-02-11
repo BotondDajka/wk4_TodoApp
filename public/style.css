@@ -54,6 +54,10 @@ h1{
   height: 35px;
 }
 
+.plus:hover {
+  cursor: pointer;
+}
+
 .cross{
   content: url('https://i.imgur.com/CiQ7JXT.png');
   border-radius: 50%;
