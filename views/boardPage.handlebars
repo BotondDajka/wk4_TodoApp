@@ -28,7 +28,7 @@
 <!-- FORM FOR CREATING NEW BOARDS -->
 <div id="new-board-form" style="display: none; padding: 5px; float: right; background: rgb(116, 199, 240);">
     <form action="/api/board/createBoard" method="POST">
-      <input required type="text" name="name" id="name" placeholder="Board name">
+      <input required type="text" name="name" id="name" placeholder="Board name" pattern="[a-zA-Z0-9. ,-]+" title="Please only use alphanumeric characters or punctuation symbols">
       <input type="Submit">
     </form>
   </div>

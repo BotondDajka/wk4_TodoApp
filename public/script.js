@@ -13,13 +13,18 @@ function generateBoard(id) {
         boardTitle.onchange = function() { // function whenever title is updated
             const textToUpdateTo = boardTitle.value
             // update board record with new title
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", `http://localhost:3000/api/board/${boardId}/editTitle`, true);
-            xhr.setRequestHeader('Content-Type', 'application/json');
-            xhr.send(JSON.stringify({
-                boardTitle: textToUpdateTo
-            }));
-            document.getElementById(`dropdown${boardId}`).innerText = textToUpdateTo
+            if (textToUpdateTo.match(/[a-z]+/)){
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", `http://localhost:3000/api/board/${boardId}/editTitle`, true);
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.send(JSON.stringify({
+                    boardTitle: textToUpdateTo
+                }));
+                document.getElementById(`dropdown${boardId}`).innerText = textToUpdateTo
+            }
+            else{
+                alert("Please only use alphanumeric characters or punctuation symbols");
+            }
         }
 
         for(let i = 0; i < data.areas.length; i++) {
