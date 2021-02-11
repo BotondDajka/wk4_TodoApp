@@ -13,6 +13,7 @@
 body{
   margin: 0;
   padding-top: 0;
+  background-color: rgb(130, 135, 136);
 }
 
 h1{
@@ -63,6 +64,7 @@ h1{
 }
 
 .cross{
+  cursor: pointer;
   content: url('https://i.imgur.com/CiQ7JXT.png');
   border-radius: 50%;
   width: 35px;
@@ -88,6 +90,7 @@ h1{
   margin: 2%;
   padding: 1em;
   border-radius: 0.75em;
+  box-shadow: 10px 10px 26px 1px rgba(0,0,0,0.75);
 }
 
 .connectedSortable{
@@ -97,15 +100,19 @@ h1{
 }
 
 .task {
+  cursor: grab;
   min-height: 3.5em;
   height: auto;
   margin: 4%;
   padding: 0.2em 1em 0.2em 1em;
-  background-color: rgb(236, 246, 253);
+  /*background-color: rgb(236, 246, 253);*/
+  background-color: #FFE5B4;
   color: rgb(12, 11, 11);
   border-radius: 0.75em;
   touch-action: none;
   user-select: none;
+
+  box-shadow: 10px 10px 12px -10px rgba(0,0,0,0.75);
 }
 
 .navbar {
@@ -128,6 +135,7 @@ h1{
 }
 
 .dropdown .dropbtn {
+  cursor: pointer;
   font-size: 20px;  
   border: none;
   outline: none;
@@ -143,6 +151,7 @@ h1{
 }
 
 .dropdown-content {
+  cursor: pointer;
   display: none;
   position: absolute;
   background-color: #f9f9f9;
