@@ -43,13 +43,19 @@ function generateBoard(id) {
             columnTitle.onchange = function() { // function whenever title is updated
                 const id = column.id.replace('column', '') // grab id and convert from string
                 const textToUpdateTo = columnTitle.value
-                var xhr = new XMLHttpRequest();
-                // update area record with new title
-                xhr.open("POST", `http://localhost:3000/api/board/${boardId}/area/${id}/editTitle`, true);
-                xhr.setRequestHeader('Content-Type', 'application/json');
-                xhr.send(JSON.stringify({
-                    name: textToUpdateTo
-                }));
+                if (/^[a-z0-9, .-]+$/i.test(textToUpdateTo)){
+                    var xhr = new XMLHttpRequest();
+                    // update area record with new title
+                    xhr.open("POST", `http://localhost:3000/api/board/${boardId}/area/${id}/editTitle`, true);
+                    xhr.setRequestHeader('Content-Type', 'application/json');
+                    xhr.send(JSON.stringify({
+                        name: textToUpdateTo
+                    }));
+                }
+                else{
+                    alert("Please only use alphanumeric characters or punctuation symbols");
+                }
+                
             }
             column.append(columnTitle)
 
@@ -87,13 +93,19 @@ function generateBoard(id) {
                     const taskId = li.id.replace('task', '') // grab id and convert from string
                     const textToUpdateTo = taskTitle.value
                     const areaId = document.getElementById(li.id).parentNode.parentNode.id.replace('column', '')
-                    // update task title in task record
-                    var xhr = new XMLHttpRequest();
-                    xhr.open("POST", `http://localhost:3000/api/board/${boardId}/area/${areaId}/task/${taskId}/editTask`, true);
-                    xhr.setRequestHeader('Content-Type', 'application/json');
-                    xhr.send(JSON.stringify({
-                        title: textToUpdateTo
-                    }));
+                    if (/^[a-z0-9, .-]+$/i.test(textToUpdateTo)){
+                        // update task title in task record
+                        var xhr = new XMLHttpRequest();
+                        xhr.open("POST", `http://localhost:3000/api/board/${boardId}/area/${areaId}/task/${taskId}/editTask`, true);
+                        xhr.setRequestHeader('Content-Type', 'application/json');
+                        xhr.send(JSON.stringify({
+                            title: textToUpdateTo
+                        }));
+                    }
+                    else{
+                        alert("Please only use alphanumeric characters or punctuation symbols");
+                    }
+                    
                 }
 
                 const taskText = document.createElement('textarea')
@@ -104,13 +116,18 @@ function generateBoard(id) {
                     const taskId = li.id.replace('task', '') // grab id and convert from string
                     const textToUpdateTo = taskText.value
                     const areaId = document.getElementById(li.id).parentNode.parentNode.id.replace('column', '')
-                    // update task text/description in task record
-                    var xhr = new XMLHttpRequest();
-                    xhr.open("POST", `http://localhost:3000/api/board/${boardId}/area/${areaId}/task/${taskId}/editTask`, true);
-                    xhr.setRequestHeader('Content-Type', 'application/json');
-                    xhr.send(JSON.stringify({
-                        text: textToUpdateTo
-                    }));
+                    if (/^[a-z0-9, .-]+$/i.test(textToUpdateTo)){
+                        // update task text/description in task record
+                        var xhr = new XMLHttpRequest();
+                        xhr.open("POST", `http://localhost:3000/api/board/${boardId}/area/${areaId}/task/${taskId}/editTask`, true);
+                        xhr.setRequestHeader('Content-Type', 'application/json');
+                        xhr.send(JSON.stringify({
+                            text: textToUpdateTo
+                        }));
+                    }
+                    else{
+                        alert("Please only use alphanumeric characters or punctuation symbols");
+                    }
                 }
 
                 const avatar = document.createElement('img')
