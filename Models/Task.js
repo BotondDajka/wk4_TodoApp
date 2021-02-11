@@ -1,8 +1,16 @@
 const { sequelize, DataTypes, Model } = require('../sequelize-index')
 
+/**
+ * Represents a Task record
+ */
+
 class Task extends Model {
 
 }
+
+/**
+     * Prepares a Task
+     */
 
 Task.init({
     title: DataTypes.STRING,
@@ -17,7 +25,6 @@ Task.init({
     freezeTableName: true
 })
 
-// define associations
 
 
 module.exports = { Task }
