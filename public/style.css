@@ -13,7 +13,9 @@
 body{
   margin: 0;
   padding-top: 0;
-  background-color: rgb(130, 135, 136);
+  background-color: rgb(180, 185, 186);
+
+  font-family: monospace !important;
 }
 
 h1{
@@ -30,6 +32,8 @@ h1{
   padding: auto;
   background: none;
   border: none;
+  font-family: monospace !important;
+  color: white;
 }
 
 .edit{
@@ -39,6 +43,8 @@ h1{
   height: auto;
   resize: none;
   overflow: hidden;
+
+  color: white;
 }
 
 .avatar { 
@@ -90,7 +96,7 @@ h1{
 
 .column{
   display: inline-table;
-  background-color: rgb(116, 199, 240);
+  background-color: #4285F4;
   width: 200px;
   margin: 2%;
   padding: 1em;
@@ -121,9 +127,13 @@ h1{
   box-shadow: 10px 10px 12px -10px rgba(0,0,0,0.75);
 }
 
+.task .edit {
+  color: black;
+}
+
 .navbar {
   overflow: hidden;
-  background-color: rgb(116, 199, 240);
+  background-color: #4285F4;
 }
 
 .navbar a {
@@ -138,6 +148,7 @@ h1{
 .dropdown {
   float: left;
   overflow: hidden;
+
 }
 
 .dropdown .dropbtn {
@@ -148,8 +159,10 @@ h1{
   color: black;
   padding: 14px 16px;
   background-color: inherit;
-  font-family: inherit;
+  
   margin: 0;
+
+  color: white;
 }
 
 .navbar a:hover, .dropdown:hover .dropbtn {
