@@ -272,7 +272,7 @@ function addTask(columnId) {
         const task = document.createElement('li')
         task.classList.add('task')
         task.classList.add('ui-sortable-handle')
-        task.id = `taks${taskId}`
+        task.id = `task${taskId}`
         
         const taskTitle = document.createElement('textarea')
         taskTitle.classList.add('edit')
@@ -326,10 +326,10 @@ function addTask(columnId) {
                 const newColumnId = ui.item["0"].parentNode.parentNode.id.replace("column","")
 
                 console.log(newColumnId)
-                
+                const sanitizedItemId = itemId.replace("task", "")
                 $.ajax({
                     type: "POST",
-                    url: `http://localhost:3000/api/board/${boardId}/area/${oldColumnId}/task/${itemId}/move`,
+                    url: `http://localhost:3000/api/board/${boardId}/area/${oldColumnId}/task/${sanitizedItemId }/move`,
                     // The key needs to match your method's input parameter (case-sensitive).
                     data: JSON.stringify({ "columnId" : newColumnId }),
                     contentType: "application/json; charset=utf-8",
