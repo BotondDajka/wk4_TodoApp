@@ -13,7 +13,8 @@ function generateBoard(id) {
         boardTitle.onchange = function() { // function whenever title is updated
             const textToUpdateTo = boardTitle.value
             // update board record with new title
-            if (textToUpdateTo.match(/[a-z]+/)){
+
+            if (/^[a-z0-9, .-]+$/i.test(textToUpdateTo)){
                 var xhr = new XMLHttpRequest();
                 xhr.open("POST", `http://localhost:3000/api/board/${boardId}/editTitle`, true);
                 xhr.setRequestHeader('Content-Type', 'application/json');
