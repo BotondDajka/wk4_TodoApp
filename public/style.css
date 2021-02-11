@@ -58,6 +58,10 @@ h1{
   cursor: pointer;
 }
 
+.cross:hover {
+  cursor: pointer;
+}
+
 .cross{
   content: url('https://i.imgur.com/CiQ7JXT.png');
   border-radius: 50%;
@@ -69,6 +73,12 @@ h1{
 .delete-board-button{
   float: right;
   margin: 0;
+}
+
+#delete-board-button:hover {
+  cursor: pointer;
+  transform: scale(1.2);
+  transition-duration: 0.2s;
 }
 
 .column{
