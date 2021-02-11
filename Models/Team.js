@@ -2,9 +2,17 @@ const { sequelize, DataTypes, Model } = require('../sequelize-index')
 const { Board } = require('./Board')
 const { User } = require('./User')
 
+/**
+ * Represents a Team record
+ */
+
 class Team extends Model {
 
 }
+
+/**
+ * Prepares a Team
+ */
 
 Team.init({
     name: DataTypes.STRING,
@@ -16,7 +24,9 @@ Team.init({
     freezeTableName: true
 })
 
-// define associations
+/**
+ * Defines Team model associations
+ */
 Team.hasMany(Board, {as: 'boards', foreignKey: 'teamId'})
 Board.belongsTo(Team, {foreignKey: 'teamId'})
 Team.hasMany(User, {as: 'users', foreignKey: 'teamId'})

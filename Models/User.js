@@ -1,8 +1,16 @@
 const { sequelize, DataTypes, Model } = require('../sequelize-index')
 
+/**
+ * Represents a User record
+ */
+
 class User extends Model {
 
 }
+
+/**
+ * Prepares a Team
+ */
 
 User.init({
     username: {
@@ -22,7 +30,5 @@ User.init({
     timestamps: false,
     freezeTableName: true
 })
-
-// define associations
 
 module.exports = { User }
