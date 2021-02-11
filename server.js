@@ -239,10 +239,13 @@ app.post("/api/board/:boardId/area/create", async (request, response)=>{
             response.status(400).send("Area must contain property called 'title' ").end();
         }
 
-        Area.create({title: data.title, boardId: boardId});
+        const newArea = await Area.create({title: data.title, boardId: boardId});
 
-        Area.sync()
-        response.status(200).end()
+        await Area.sync()
+
+        //console.log(newArea.id)
+
+        response.json({areaId: newArea.id}).status(200)
     }
 })
 
@@ -395,6 +398,9 @@ app.post("/api/board/:boardId/delete", async (request, response)=>{
 app.post("/api/board/:boardId/area/:areaId/task/createTask", async (request, response) =>{
     const boardId = request.params.boardId
     const areaId = request.params.areaId
+
+    let newTask = null;
+
     const board = await Board.findOne({
         
         where:{
@@ -435,9 +441,9 @@ app.post("/api/board/:boardId/area/:areaId/task/createTask", async (request, res
                         labels = data.labels
                     }
                 }
-                const newTask = await Task.create({title: title,
+                newTask = await Task.create({title: title,
                 text:text, labels:labels});
-               
+
                 await selectedArea.addTask(newTask);
 
                 break; 
@@ -448,7 +454,7 @@ app.post("/api/board/:boardId/area/:areaId/task/createTask", async (request, res
             response.status(404).send("Error area not found").end
         }       
         
-        response.status(200).end()
+        response.json({taskId: newTask.id}).status(200)
     }
 })
 
