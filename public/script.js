@@ -150,7 +150,7 @@ function generateBoard(id) {
                 taskDeleteBtn.style.width = "20px"
                 taskDeleteBtn.style.height = "20px"
 
-                taskDeleteBtn.onclick =  function(){deleteTask(column.id, li.id)} 
+                taskDeleteBtn.onclick = function(){deleteTask(column.id, li.id)} 
 
                 li.append(taskDeleteBtn)
 
@@ -177,8 +177,7 @@ function generateBoard(id) {
                     const oldColumnId = lastParent.id.replace("column","")
                     const newColumnId = ui.item["0"].parentNode.parentNode.id.replace("column","")
 
-                    
-                    
+                    ui.item["0"].querySelector(".cross").onclick =  function(){deleteTask("column"+newColumnId, "task"+itemId)}
                     $.ajax({
                         type: "POST",
                         url: `http://localhost:3000/api/board/${boardId}/area/${oldColumnId}/task/${itemId}/move`,
@@ -260,8 +259,7 @@ function addColumn(id) {
                 const oldColumnId = lastParent.id.replace("column","")
                 const newColumnId = ui.item["0"].parentNode.parentNode.id.replace("column","")
 
-                
-                
+                ui.item["0"].querySelector(".cross").onclick =  function(){deleteTask("column"+newColumnId, "task"+itemId)}
                 $.ajax({
                     type: "POST",
                     url: `http://localhost:3000/api/board/${boardId}/area/${oldColumnId}/task/${itemId}/move`,
@@ -382,6 +380,7 @@ function addTask(columnId) {
                 const oldColumnId = lastParent.id.replace("column","")
                 const newColumnId = ui.item["0"].parentNode.parentNode.id.replace("column","")
 
+                ui.item["0"].querySelector(".cross").onclick =  function(){deleteTask("column"+newColumnId, "task"+itemId)} 
                 
                 const sanitizedItemId = itemId.replace("task", "")
                 $.ajax({
