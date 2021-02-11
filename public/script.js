@@ -65,12 +65,14 @@ function generateBoard(id) {
 
             const plus = document.createElement('img')
             plus.classList.add('plus')
+            //plus.alt = "Add task"
             plus.onclick = function() {addTask(boardId, column.id)}
 
             column.append(plus)
 
             const cross = document.createElement('img')
             cross.classList.add('cross')
+            cross.alt = "Delete column"
             cross.onclick = function(){deleteColumn(id, currentArea.id)}
             column.append(cross)
 

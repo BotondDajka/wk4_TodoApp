@@ -3,7 +3,7 @@
 <div class="navbar">
   <a href="/">Login</a>
   <div class="dropdown">
-    <button class="dropbtn">Boards</button>
+    <button class="dropbtn" aria-label="Display boards">Boards</button>
     <div class="dropdown-content">
       {{#each boards}}
         <a id="dropdown{{this.id}}" onclick="generateBoard({{this.id}})">{{this.name}}</a>
@@ -11,7 +11,7 @@
     </div>
   </div> 
   <div class="dropdown">
-    <button class="dropbtn">Team</button>
+    <button class="dropbtn" aria-label="Display team members">Team</button>
     <div class="dropdown-content">
       <a href="#">User 1</a>
       <a href="#">User 2</a>
@@ -19,17 +19,19 @@
       <a href="#">User 4</a>
     </div>
   </div> 
+  <label for="boardName" style="display: none">Edit board name</label>
   <input id="boardName" type="text" class="title" value="Board Name" style="font-size: 38px;">
-  <div id="delete-board-button" class="delete-board-button"></div>
-  <img id="new-board-button" onclick="displayNewBoardForm()" style="float: right; margin: 0; padding: 10px 5px" class="plus" />
+  <div id="delete-board-button" class="delete-board-button" alt="delete board"></div>
+  <img id="new-board-button" onclick="displayNewBoardForm()" style="float: right; margin: 0; padding: 10px 5px" class="plus" alt="open new board form"/>
 
 </div>
 
 <!-- FORM FOR CREATING NEW BOARDS -->
 <div id="new-board-form" style="display: none; padding: 5px; float: right; background: rgb(116, 199, 240);">
-    <form action="/api/board/createBoard" method="POST">
+    <form action="/api/board/createBoard" method="POST" aria-label="New board form">
+      <label for="name" style="display: none">New board name</label>
       <input required type="text" name="name" id="name" placeholder="Board name" pattern="^[a-zA-Z0-9, .-]+$" title="Please only use alphanumeric characters or punctuation symbols">
-      <input type="Submit">
+      <input type="Submit" aria-label="Submit new board form">
     </form>
   </div>
 
