@@ -27,7 +27,7 @@
 </div>
 
 <!-- FORM FOR CREATING NEW BOARDS -->
-<div id="new-board-form" style="display: none; padding: 5px; float: right; background: rgb(116, 199, 240);">
+<div id="new-board-form" style="display: none; padding: 5px; float: right; background: #4285F4;">
     <form action="/api/board/createBoard" method="POST" aria-label="New board form">
       <label for="name" style="display: none">New board name</label>
       <input required type="text" name="name" id="name" placeholder="Board name" pattern="^[a-zA-Z0-9, .-]+$" title="Please only use alphanumeric characters or punctuation symbols">
@@ -36,6 +36,7 @@
   </div>
 
 <!-- BOARD -->
+<main>
 <div id="container" class="flex-container">
   {{!-- <div class="column">
     <input type="text" class="edit" value="To Do" style="font-size: 30px;">
@@ -69,6 +70,7 @@
     </ul>
   </div> --}}
 </div>
+</main>
 
 <script src="http://localhost:3000/script.js" type="text/javascript"></script>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
