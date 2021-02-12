@@ -1,0 +1,267 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+.wrapper{ 
+    width: 1170px;
+ margin: auto;
+}
+
+.dropdown{
+    margin: 0; 
+     padding: 0; 
+    color: black;
+}
+
+body {
+        background-image: url("https://images.pexels.com/photos/8892/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"); 
+        background-size: cover;
+    
+
+
+      }
+
+      header {
+        width: 550px;
+         
+        margin: 0 auto;
+        text-align: center; 
+        text-align: center;
+        color:#fff;
+        text-transform: uppercase;
+        font-size: 40px;
+        text-align: center;
+        padding: 10px 25px;
+        text-decoration: blueviolet;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    }
+
+       
+
+        .img1 {
+              width: 33.33%;
+              border: 10px;
+              border-radius: 8px;
+              width: 500px;
+              height: 650px;
+              float: left;
+              }
+
+         .img2 {
+             float: right;
+             border-radius: 8px;
+             border: 10px;
+             width: 600px;
+             
+
+
+
+         }
+
+         .img2 img {
+             height: auto;
+             width: 100%;
+         }
+
+         .column {
+
+            float: left;
+            width: 33.33%;
+            padding: 15px;
+         }
+
+        
+
+.nav-area {
+    float: left;
+    list-style: none;
+    margin-top: 30px;
+    position: relative;
+} 
+
+.nav-area li {
+    display: inline-block;
+
+}
+
+.nav-area li a{
+    color: black;
+    text-decoration: none;
+    padding: 5px 20px;
+    font-family: poppins;
+    font-size: 16px;
+}
+
+.nav-area li a:hover{
+    background: none;
+    color: white;
+
+
+}
+
+.logo img{
+    width: 50px;
+    float: none;
+    height: 50px;
+}
+
+
+section{
+    padding: 10px 25px;
+    text-decoration: grey;
+    text-transform: uppercase;
+    font-size: 14px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.dropbtn {
+
+    color:white;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 5px;
+    font: 16px poppins;
+    border: none;
+    cursor: pointer; 
+    text-align: left;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px;
+    z-index: 1;
+  }
+.dropdown:hover{
+    color:whitesmoke;
+}  
+
+
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+
+
+.section a:hover{
+    background: #fff;
+    color: #333;
+}
+
+footer {
+    width: 600px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 100px;
+    }
+
+
+
+form {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color:#4285F4;
+    float: initial;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.boxed {
+    border: 1px solid green ;
+    width: 20%;
+    background-color: grey;
+    position: inherit;
+}
+
+    .p1 {
+        color: black;
+        font-style: serif;
+        float: left;
+        width: 33.33%;
+        padding: 15px;
+        border: 1px solid green ;
+        width: 50%;
+
+         }
+  
+
+  .navbar1 {
+    background-color:#4285F4;
+    width: 100%;
+    padding-bottom: 20px;
+    float: right;
+
+  }
+
+  /* .navbar-links { */
+      /* float: right; */
+  /* } */
+  
+
+  .navbar-links span {
+      display: inline-block;
+  }
+
+  .navbar-links ul {
+       display:inline-block; 
+
+      
+  }
+
+  
+  .navbar-links ul li {
+    display: inline-block;
+}
+
+
+.login-container {
+    background-color: khaki;
+    float: right;
+}
+
+.graph {
+    float: left;
+}
+
+.graph2 {
+    float: inline-start;
+}
+
+.header1{
+    width: 500px;
+    height: 90px;
+    background: #4285F4;
+    color: black;
+    float: right;   
+}
+
+
+
+.triangle-right {
+	width: 100;
+	height: 0;
+	border-top: 25px solid transparent;
+	border-left: 50px solid #4285F4;
+	border-bottom: 25px solid transparent;
+    float: left;
+    
+}
+
+.conc {
+
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color:#fff;
+    text-transform: uppercase;
+    font-size: 20px;
+
+
+}
